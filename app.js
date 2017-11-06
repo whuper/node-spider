@@ -1,18 +1,27 @@
 var cheerio = require('cheerio');
 var superagent = require('superagent');
 
-superagent.get('http://localhost/blog.html').end(function(err, sres) {
+var index_url = 'http://www.tokyo-hot.com/product/?page=';
+var cur_page = 1;
+
+superagent.get(index_url + cur_page).end(function(err, sres) {
 	if (err) {
-		return next(err);
+            console.log(err);
 	}
+        console.log(sres);
+        return;
 	var $ = cheerio.load(sres.text);
 	var items = [];
-	$('#post_list .post_item').each(function(idx, element) {
+	$('ul.list li.detail').each(function(idx, element) {
 		var $element = $(element);
+        var a_element = $element.find('a.rm');
+        var desc_element = a_element.find('.description2');
 		items.push({
-			title: $element.find('a.titlelnk').text(),
-			author: $element.find('a.lightblue').text(),
-			href: $element.find('a.titlelnk').attr('href')
+			href: a_element.attr('href'),
+			cover: a_element.find('>img').attr('src'),
+			title: desc_elementfind('.title').text(),
+			actor: desc_element.find('.actor').text(),
+			text: desc_element.find('.text').text()
 		});
 	});
 
@@ -22,10 +31,10 @@ superagent.get('http://localhost/blog.html').end(function(err, sres) {
 
 	db.serialize(function() {
 		//db.run("CREATE TABLE lorem (info TEXT)");
-		var stmt = db.prepare("INSERT INTO tokyohot(id,title,designation,videoName,actor,videoName,url) VALUES (?,?,?,?,?,?,?)");
+		var stmt = db.prepare("INSERT INTO tokyohot(id,title,designation,videoName,actor,videoName,url) VALUES (?,?,?,?,?,?,?,?,?)");
 		items.forEach(function(item) {
 			console.log(item);
-			stmt.run(null, item.title, null, null, item.author, null, item.href);
+			stmt.run(null, item.title, null, null, item.actor, null, item.href,item.text,item.over);
 		})
 		stmt.finalize();
 		/*db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
