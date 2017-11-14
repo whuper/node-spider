@@ -2,10 +2,11 @@ var cheerio = require('cheerio');
 var superagent = require('superagent');
 
 // extend with Request#proxy()
-require('superagent-proxy')(request);
+require('superagent-proxy')(superagent);
 
 // HTTP, HTTPS, or SOCKS proxy to use
-var proxy = process.env.http_proxy || 'http://168.63.43.102:3128';
+// http://61.135.169.121:443  'http://127.0.0.1:1080'
+var proxy = process.env.http_proxy || 'http://127.0.0.1:1080';
 
 
 var index_url = 'http://www.tokyo-hot.com/product/?page=';
@@ -24,8 +25,8 @@ function onresponse (err, res) {
   } else {
     console.log(res.status, res.headers);
     console.log(res.body);
-			//console.log(res);
-			//return;
+			console.log(res);
+			return;
 		var $ = cheerio.load(res.text);
 		var items = [];
 		$('ul.list li.detail').each(function(idx, element) {
