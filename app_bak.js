@@ -3,7 +3,22 @@ var superagent = require('superagent');
 
 var async = require('async');
 
+// 并发连接数的计数器
+var concurrencyCount = 0;
 
+var counterfeitUrls = [];
+for(var i = 0; i < 30; i++) {
+  counterfeitUrls.push('http://datasource_' + i);
+}
+
+async.mapLimit(counterfeitUrls, 5, function (url, callback) {
+  fetchUrl(url, callback);
+}, function (err, result) {
+  console.log('final:');
+  writeJson(result);
+});
+
+return;
 
 // extend with Request#proxy()
 require('superagent-proxy')(superagent);
@@ -12,23 +27,18 @@ require('superagent-proxy')(superagent);
 // http://61.135.169.121:443  'http://127.0.0.1:1080'
 var proxy = process.env.http_proxy || 'http://127.0.0.1:1080';
 
-var timeOut;
 
-//var basic_url = 'http://www.tokyo-hot.com/product/?page=';
-var basic_url = 'https://news.cnblogs.com/n/page/';
+//var index_url = 'http://www.tokyo-hot.com/product/?page=';
+var index_url = 'https://news.cnblogs.com/n/page/';
 var cur_page = 1;
 
-toRequest(basic_url + cur_page);
+superagent
+	.get(index_url + cur_page)
+	.set('Accept', 'application/json')
+	.proxy(proxy)
+	.end(onresponse);
 
 
-function toRequest(url){
-	superagent
-		.get(url)
-		.set('Accept', 'application/json')
-		.proxy(proxy)
-		.end(onresponse);
-
-}
 
 function onresponse (err, res) {
   if (err) {
@@ -51,20 +61,6 @@ function onresponse (err, res) {
 			});
 	});
 
-		insertDb(items);
-		cur_page += 1;
-
-		timeOut = setTimeout(function(){
-			toRequest(basic_url + cur_page);
-		},1000);
-
-		
-  }
-}
-
-
-function insertDb(items){
-
 	//保存到数据库里
 	var sqlite3 = require('sqlite3').verbose();
 	var db = new sqlite3.Database('./nodespider.db');
@@ -72,7 +68,7 @@ function insertDb(items){
 	db.serialize(function() {
 		//db.run("CREATE TABLE lorem (info TEXT)");
 		var stmt = db.prepare("INSERT INTO tokyohot(id,title,designation,videoName,actor,url,soucePage) VALUES (?,?,?,?,?,?,?,?,?)");
-		items.forEach(function(item,index) {
+		items.forEach(function(item) {
 			console.log(item);
 			stmt.run(null, item.title, null, null, item.actor, null, item.href,item.text,item.over,index_url+cur_page);
 		})
@@ -83,7 +79,7 @@ function insertDb(items){
 	});
 
 	db.close();
-
+  }
 }
 
 function writeJson(data){
@@ -123,4 +119,13 @@ function writeJson(data){
 		//写入文件END-----
 
 }
-
+function fetchUrl(url, callback) {
+  // delay 的值在 2000 以内，是个随机的整数
+  var delay = parseInt((Math.random() * 10000000) % 2000, 10);
+  concurrencyCount++;
+  console.log('现在的并发数是', concurrencyCount, '，正在抓取的是', url, '，耗时' + delay + '毫秒');
+  setTimeout(function () {
+    concurrencyCount--;
+    callback(null, url + ' html content');
+  }, delay);
+};
