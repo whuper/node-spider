@@ -3,6 +3,26 @@ var superagent = require('superagent');
 
 var async = require('async');
 
+var nodeDownloader = require('node-downloader');
+
+
+var apkurl = 'http://down.sandai.net/mac/thunder_3.1.7.3266.dmg';
+
+	var download = new nodeDownloader.NodeDownloader();
+
+	download.setDirToSave('./tmp/');
+	download.downloadFile(apkurl);
+	
+	download.eventEmitter.on('progress', function(percent, speed) {
+		console.log('percent: ' + percent);
+		console.log('speed: ' + speed);
+			});
+
+	// just to stop
+	setTimeout(function() {
+						download.stopDownload();
+					}, 3000);
+
 
 
 // extend with Request#proxy()
@@ -18,7 +38,7 @@ var timeOut;
 var basic_url = 'https://news.cnblogs.com/n/page/';
 var cur_page = 1;
 
-toRequest(basic_url + cur_page);
+//toRequest(basic_url + cur_page);
 
 
 function toRequest(url){
