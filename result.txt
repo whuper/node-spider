@@ -1,13 +1,31 @@
-
- --***-- Tue Nov 14 2017 17:27:11 GMT+0800 (中国标准时间)
- undefined
- --***-- Tue Nov 14 2017 17:27:11 GMT+0800 (中国标准时间)
- undefined
- --***-- Tue Nov 14 2017 17:27:12 GMT+0800 (中国标准时间)
- undefined
- --***-- Tue Nov 14 2017 17:27:12 GMT+0800 (中国标准时间)
- undefined
- --***-- Tue Nov 14 2017 17:27:13 GMT+0800 (中国标准时间)
- undefined
- --***-- Tue Nov 14 2017 17:37:16 GMT+0800 (中国标准时间)
- ["http://datasource_0 html content","http://datasource_1 html content","http://datasource_2 html content","http://datasource_3 html content","http://datasource_4 html content","http://datasource_5 html content","http://datasource_6 html content","http://datasource_7 html content","http://datasource_8 html content","http://datasource_9 html content","http://datasource_10 html content","http://datasource_11 html content","http://datasource_12 html content","http://datasource_13 html content","http://datasource_14 html content","http://datasource_15 html content","http://datasource_16 html content","http://datasource_17 html content","http://datasource_18 html content","http://datasource_19 html content","http://datasource_20 html content","http://datasource_21 html content","http://datasource_22 html content","http://datasource_23 html content","http://datasource_24 html content","http://datasource_25 html content","http://datasource_26 html content","http://datasource_27 html content","http://datasource_28 html content","http://datasource_29 html content"]
+﻿
+ --***-- Thu Nov 16 2017 16:53:38 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 404 PATH /sw-search-sp/soft/f2/25836/1Sublime_Text.1395998182oo.dmg"
+ --***-- Thu Nov 16 2017 16:53:51 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 404 PATH /sw-search-sp/soft/f2/25836/1Sublime_Text.1395998182oo.dmg"
+ --***-- Thu Nov 16 2017 16:55:04 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 404 PATH /sw-search-sp/soft/f2/25836/1Sublime_Text.1395998182oo.dmg"
+ --***-- Thu Nov 16 2017 18:16:50 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 403 PATH http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/220x124_default.jpg"
+ --***-- Thu Nov 16 2017 18:18:21 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 403 PATH http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/220x124_default.jpg"
+ --***-- Thu Nov 16 2017 18:21:14 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 403 PATH http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/220x124_default.jpg"
+ --***-- Thu Nov 16 2017 18:22:06 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
+ --***-- Thu Nov 16 2017 18:22:47 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
+ --***-- Thu Nov 16 2017 18:23:16 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
+ --***-- Thu Nov 16 2017 18:24:26 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
+ --***-- Thu Nov 16 2017 18:33:20 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
+ --***-- Thu Nov 16 2017 18:34:09 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] file size > 1000000000 bytes. File size = undefined"
+ --***-- Thu Nov 16 2017 18:34:39 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] file size > 1000000000 bytes. File size = undefined"
+ --***-- Thu Nov 16 2017 18:36:05 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] file size > 1000000000 bytes. File size = undefined"
+ --***-- Thu Nov 16 2017 18:41:23 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 403 PATH http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/220x124_default.jpg"

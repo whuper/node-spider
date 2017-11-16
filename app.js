@@ -3,26 +3,52 @@ var superagent = require('superagent');
 
 var async = require('async');
 
-var nodeDownloader = require('node-downloader');
+var writejson = require('./writejson');
+
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('./nodespider.db');
+/*
+	db.serialize(function() {
+		//db.run("CREATE TABLE lorem (info TEXT)");
+
+		stmt.finalize();
+		db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+			  console.log(row.id + ": " + row.info);
+		  });
+	});
+
+	db.close();
+	*/
 
 
-var apkurl = 'http://down.sandai.net/mac/thunder_3.1.7.3266.dmg';
 
-	var download = new nodeDownloader.NodeDownloader();
+/*
+var apkurl = 'http://dlsw.baidu.com/sw-search-sp/soft/f2/25836/1Sublime_Text.1395998182oo.dmg';
 
-	download.setDirToSave('./tmp/');
-	download.downloadFile(apkurl);
-	
-	download.eventEmitter.on('progress', function(percent, speed) {
-		console.log('percent: ' + percent);
-		console.log('speed: ' + speed);
-			});
+var downloader = require('./downloader');
 
-	// just to stop
-	setTimeout(function() {
-						download.stopDownload();
-					}, 3000);
+var downloadDir = __dirname + '/tmp/';
 
+downloader.on('done', function(msg) {
+	console.log('####'+msg);
+});
+
+downloader.on('error', function(msg) {
+	console.log('###'+msg);
+});
+
+downloader.download(apkurl, downloadDir);
+*/
+
+
+var header = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.6',
+    'Host': 'www.tokyo-hot.com',
+    'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Mobile Safari/537.36',
+    'Cache-Control': 'max-age=0',
+    'Connection': 'keep-alive'
+};
 
 
 // extend with Request#proxy()
@@ -34,17 +60,18 @@ var proxy = process.env.http_proxy || 'http://127.0.0.1:1080';
 
 var timeOut;
 
-//var basic_url = 'http://www.tokyo-hot.com/product/?page=';
-var basic_url = 'https://news.cnblogs.com/n/page/';
+var basic_url = 'http://www.tokyo-hot.com/product/?page=';
+//var basic_url = 'https://news.cnblogs.com/n/page/';
 var cur_page = 1;
 
-//toRequest(basic_url + cur_page);
+toRequest(basic_url + cur_page);
 
 
 function toRequest(url){
+	console.log('\x1B[36m%s\x1B[0m:','request' + url);
 	superagent
 		.get(url)
-		.set('Accept', 'application/json')
+		//.set('header',header)
 		.proxy(proxy)
 		.end(onresponse);
 
@@ -53,9 +80,9 @@ function toRequest(url){
 function onresponse (err, res) {
   if (err) {
     console.log(err);
+	writeJson(err);
   } else {
-    /*console.log(res.status, res.headers);
-    console.log(res.body);*/
+    //console.log(res.status, res.headers);
 		var $ = cheerio.load(res.text);
 		var items = [];
 		$('ul.list li.detail').each(function(idx, element) {
@@ -64,8 +91,8 @@ function onresponse (err, res) {
 			var desc_element = a_element.find('.description2');
 			items.push({
 				href: a_element.attr('href'),
-				cover: a_element.find('>img').attr('src'),
-				title: desc_elementfind('.title').text(),
+				coverSrc: a_element.find('>img').attr('src'),
+				title: desc_element.find('.title').text(),
 				actor: desc_element.find('.actor').text(),
 				text: desc_element.find('.text').text()
 			});
@@ -73,12 +100,7 @@ function onresponse (err, res) {
 
 		insertDb(items);
 		cur_page += 1;
-
-		timeOut = setTimeout(function(){
-			toRequest(basic_url + cur_page);
-		},1000);
-
-		
+	
   }
 }
 
@@ -86,61 +108,20 @@ function onresponse (err, res) {
 function insertDb(items){
 
 	//保存到数据库里
-	var sqlite3 = require('sqlite3').verbose();
-	var db = new sqlite3.Database('./nodespider.db');
-
-	db.serialize(function() {
-		//db.run("CREATE TABLE lorem (info TEXT)");
-		var stmt = db.prepare("INSERT INTO tokyohot(id,title,designation,videoName,actor,url,soucePage) VALUES (?,?,?,?,?,?,?,?,?)");
+		var stmt = db.prepare("INSERT INTO tokyohot(id,title,designation,videoName,actor,videoUrl,url,text,coverSrc,soucePage) VALUES (?,?,?,?,?,?,?,?,?,?)");
 		items.forEach(function(item,index) {
 			console.log(item);
-			stmt.run(null, item.title, null, null, item.actor, null, item.href,item.text,item.over,index_url+cur_page);
+			stmt.run(null, item.title, null, null, item.actor, null,item.href,item.text,item.coverSrc,basic_url+cur_page);
 		})
 		stmt.finalize();
-		/*db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-			  console.log(row.id + ": " + row.info);
-		  });*/
-	});
 
-	db.close();
+		console.log('\x1B[36m%s\x1B[0m','###开始下一个');
+		timeOut = setTimeout(function(){
+			toRequest(basic_url + cur_page);
+		},1000);
 
+		
+		//db.close();
 }
 
-function writeJson(data){
-
-		var dataBuf = '\n --***-- ' + (new Date()) + '\n ' + JSON.stringify(data);
-		var fs = require('fs');
-		var logfile = './result.txt';
-		fs.exists(logfile, function(exists) {  
-			if(exists){
-					fs.stat(logfile, function (err,stats) {
-						if(err) 
-							throw err;
-						//如果日志文件大于20KB,就使用覆盖模式
-						if(parseInt(stats.size) > 10240*2){
-							var flag = 'w';
-						} else {
-							var flag = 'a';
-						}	
-						fs.writeFile(logfile,dataBuf,{
-							flag: flag
-						}, function(err){
-							if(err) 
-								throw err;
-						});
-					
-					})
-			
-			}else {
-				fs.writeFile(logfile,dataBuf,{
-						flag: 'w'
-					}, function(err){
-						if(err) 
-							throw err;
-					});
-			} 
-		}); 
-		//写入文件END-----
-
-}
 
