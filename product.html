@@ -1,0 +1,857 @@
+
+
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Style-Type" content="text/css">
+        <meta http-equiv="Content-Script-Type" content="text/javascript">
+        <meta http-equiv="X-UA-Compatible" content="IE=100"><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"UwIFVVNTGwAFXFdWAgQ="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e,n){function r(t){try{c.console&&console.log(t)}catch(e){}}var o,i=t("ee"),a=t(12),c={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(c.console=!0,o.indexOf("dev")!==-1&&(c.dev=!0),o.indexOf("nr_dev")!==-1&&(c.nrDev=!0))}catch(s){}c.nrDev&&i.on("internal-error",function(t){r(t.stack)}),c.dev&&i.on("fn-err",function(t,e,n){r(n.stack)}),c.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(c,function(t,e){return t}).join(", ")))},{}],2:[function(t,e,n){function r(t,e,n,r,o){try{d?d-=1:i("err",[o||new UncaughtException(t,e,n)])}catch(c){try{i("ierr",[c,s.now(),!0])}catch(u){}}return"function"==typeof f&&f.apply(this,a(arguments))}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function o(t){i("err",[t,s.now()])}var i=t("handle"),a=t(13),c=t("ee"),s=t("loader"),f=window.onerror,u=!1,d=0;s.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(l){"stack"in l&&(t(5),t(4),"addEventListener"in window&&t(3),s.xhrWrappable&&t(6),u=!0)}c.on("fn-start",function(t,e,n){u&&(d+=1)}),c.on("fn-err",function(t,e,n){u&&(this.thrown=!0,o(n))}),c.on("fn-end",function(){u&&!this.thrown&&d>0&&(d-=1)}),c.on("internal-error",function(t){i("ierr",[t,s.now(),!0])})},{}],3:[function(t,e,n){function r(t){for(var e=t;e&&!e.hasOwnProperty(u);)e=Object.getPrototypeOf(e);e&&o(e)}function o(t){c.inPlace(t,[u,d],"-",i)}function i(t,e){return t[1]}var a=t("ee").get("events"),c=t(15)(a,!0),s=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";e.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(o(window),o(f.prototype)),a.on(u+"-start",function(t,e){var n=t[1],r=s(n,"nr@wrapped",function(){function t(){if("function"==typeof n.handleEvent)return n.handleEvent.apply(n,arguments)}var e={object:t,"function":n}[typeof n];return e?c(e,"fn-",null,e.name||"anonymous"):n});this.wrapped=t[1]=r}),a.on(d+"-start",function(t){t[1]=this.wrapped||t[1]})},{}],4:[function(t,e,n){var r=t("ee").get("raf"),o=t(15)(r),i="equestAnimationFrame";e.exports=r,o.inPlace(window,["r"+i,"mozR"+i,"webkitR"+i,"msR"+i],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],5:[function(t,e,n){function r(t,e,n){t[0]=a(t[0],"fn-",null,n)}function o(t,e,n){this.method=n,this.timerDuration=isNaN(t[1])?0:+t[1],t[0]=a(t[0],"fn-",this,n)}var i=t("ee").get("timer"),a=t(15)(i),c="setTimeout",s="setInterval",f="clearTimeout",u="-start",d="-";e.exports=i,a.inPlace(window,[c,"setImmediate"],c+d),a.inPlace(window,[s],s+d),a.inPlace(window,[f,"clearImmediate"],f+d),i.on(s+u,r),i.on(c+u,o)},{}],6:[function(t,e,n){function r(t,e){d.inPlace(e,["onreadystatechange"],"fn-",c)}function o(){var t=this,e=u.context(t);t.readyState>3&&!e.resolved&&(e.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,w,"fn-",c)}function i(t){g.push(t),h&&(b?b.then(a):v?v(a):(E=-E,O.data=E))}function a(){for(var t=0;t<g.length;t++)r([],g[t]);g.length&&(g=[])}function c(t,e){return e}function s(t,e){for(var n in t)e[n]=t[n];return e}t(3);var f=t("ee"),u=f.get("xhr"),d=t(15)(u),l=NREUM.o,p=l.XHR,h=l.MO,m=l.PR,v=l.SI,y="readystatechange",w=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],g=[];e.exports=u;var x=window.XMLHttpRequest=function(t){var e=new p(t);try{u.emit("new-xhr",[e],e),e.addEventListener(y,o,!1)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}return e};if(s(p,x),x.prototype=p.prototype,d.inPlace(x.prototype,["open","send"],"-xhr-",c),u.on("send-xhr-start",function(t,e){r(t,e),i(e)}),u.on("open-xhr-start",r),h){var b=m&&m.resolve();if(!v&&!m){var E=1,O=document.createTextNode(E);new h(a).observe(O,{characterData:!0})}}else f.on("fn-end",function(t){t[0]&&t[0].type===y||a()})},{}],7:[function(t,e,n){function r(t){var e=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<d;r++)t.removeEventListener(u[r],this.listener,!1);if(!e.aborted){if(n.duration=a.now()-this.startTime,4===t.readyState){e.status=t.status;var i=o(t,this.lastSize);if(i&&(n.rxSize=i),this.sameOrigin){var s=t.getResponseHeader("X-NewRelic-App-Data");s&&(e.cat=s.split(", ").pop())}}else e.status=0;n.cbTime=this.cbTime,f.emit("xhr-done",[t],t),c("xhr",[e,n,this.startTime])}}}function o(t,e){var n=t.responseType;if("json"===n&&null!==e)return e;var r="arraybuffer"===n||"blob"===n||"json"===n?t.response:t.responseText;return h(r)}function i(t,e){var n=s(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}var a=t("loader");if(a.xhrWrappable){var c=t("handle"),s=t(8),f=t("ee"),u=["load","error","abort","timeout"],d=u.length,l=t("id"),p=t(11),h=t(10),m=window.XMLHttpRequest;a.features.xhr=!0,t(6),f.on("new-xhr",function(t){var e=this;e.totalCbs=0,e.called=0,e.cbTime=0,e.end=r,e.ended=!1,e.xhrGuids={},e.lastSize=null,p&&(p>34||p<10)||window.opera||t.addEventListener("progress",function(t){e.lastSize=t.loaded},!1)}),f.on("open-xhr-start",function(t){this.params={method:t[0]},i(this,t[1]),this.metrics={}}),f.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),f.on("send-xhr-start",function(t,e){var n=this.metrics,r=t[0],o=this;if(n&&r){var i=h(r);i&&(n.txSize=i)}this.startTime=a.now(),this.listener=function(t){try{"abort"===t.type&&(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof e.onload))&&o.end(e)}catch(n){try{f.emit("internal-error",[n])}catch(r){}}};for(var c=0;c<d;c++)e.addEventListener(u[c],this.listener,!1)}),f.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),f.on("xhr-load-added",function(t,e){var n=""+l(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),f.on("xhr-load-removed",function(t,e){var n=""+l(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),f.on("addEventListener-end",function(t,e){e instanceof m&&"load"===t[0]&&f.emit("xhr-load-added",[t[1],t[2]],e)}),f.on("removeEventListener-end",function(t,e){e instanceof m&&"load"===t[0]&&f.emit("xhr-load-removed",[t[1],t[2]],e)}),f.on("fn-start",function(t,e,n){e instanceof m&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=a.now()))}),f.on("fn-end",function(t,e){this.xhrCbStart&&f.emit("xhr-cb-time",[a.now()-this.xhrCbStart,this.onload,e],e)})}},{}],8:[function(t,e,n){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname);var i=!e.protocol||":"===e.protocol||e.protocol===n.protocol,a=e.hostname===document.domain&&e.port===n.port;return r.sameOrigin=i&&(!e.hostname||a),r}},{}],9:[function(t,e,n){function r(){}function o(t,e,n){return function(){return i(t,[f.now()].concat(c(arguments)),e?null:this,n),e?void 0:this}}var i=t("handle"),a=t(12),c=t(13),s=t("ee").get("tracer"),f=t("loader"),u=NREUM;"undefined"==typeof window.newrelic&&(newrelic=u);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",p=l+"ixn-";a(d,function(t,e){u[e]=o(l+e,!0,"api")}),u.addPageAction=o(l+"addPageAction",!0),u.setCurrentRouteName=o(l+"routeName",!0),e.exports=newrelic,u.interaction=function(){return(new r).get()};var h=r.prototype={createTracer:function(t,e){var n={},r=this,o="function"==typeof e;return i(p+"tracer",[f.now(),t,n],r),function(){if(s.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return e.apply(this,arguments)}finally{s.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){h[e]=o(p+e)}),newrelic.noticeError=function(t){"string"==typeof t&&(t=new Error(t)),i("err",[t,f.now()])}},{}],10:[function(t,e,n){e.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(e){return}}}},{}],11:[function(t,e,n){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),e.exports=r},{}],12:[function(t,e,n){function r(t,e){var n=[],r="",i=0;for(r in t)o.call(t,r)&&(n[i]=e(r,t[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],13:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(o<0?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=r},{}],14:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],15:[function(t,e,n){function r(t){return!(t&&t instanceof Function&&t.apply&&!t[a])}var o=t("ee"),i=t(13),a="nr@original",c=Object.prototype.hasOwnProperty,s=!1;e.exports=function(t,e){function n(t,e,n,o){function nrWrapper(){var r,a,c,s;try{a=this,r=i(arguments),c="function"==typeof n?n(r,a):n||{}}catch(f){l([f,"",[r,a,o],c])}u(e+"start",[r,a,o],c);try{return s=t.apply(a,r)}catch(d){throw u(e+"err",[r,a,d],c),d}finally{u(e+"end",[r,a,s],c)}}return r(t)?t:(e||(e=""),nrWrapper[a]=t,d(t,nrWrapper),nrWrapper)}function f(t,e,o,i){o||(o="");var a,c,s,f="-"===o.charAt(0);for(s=0;s<e.length;s++)c=e[s],a=t[c],r(a)||(t[c]=n(a,f?c+o:o,i,c))}function u(n,r,o){if(!s||e){var i=s;s=!0;try{t.emit(n,r,o,e)}catch(a){l([a,n,r,o])}s=i}}function d(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){l([r])}for(var o in t)c.call(t,o)&&(e[o]=t[o]);return e}function l(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=o),n.inPlace=f,n.flag=a,n}},{}],ee:[function(t,e,n){function r(){}function o(t){function e(t){return t&&t instanceof r?t:t?s(t,c,i):i()}function n(n,r,o,i){if(!l.aborted||i){t&&t(n,r,o);for(var a=e(o),c=h(n),s=c.length,f=0;f<s;f++)c[f].apply(a,r);var d=u[w[n]];return d&&d.push([g,n,r,a]),a}}function p(t,e){y[t]=h(t).concat(e)}function h(t){return y[t]||[]}function m(t){return d[t]=d[t]||o(n)}function v(t,e){f(t,function(t,n){e=e||"feature",w[n]=e,e in u||(u[e]=[])})}var y={},w={},g={on:p,emit:n,get:m,listeners:h,context:e,buffer:v,abort:a,aborted:!1};return g}function i(){return new r}function a(){(u.api||u.feature)&&(l.aborted=!0,u=l.backlog={})}var c="nr@context",s=t("gos"),f=t(12),u={},d={},l=e.exports=o();l.backlog=u},{}],gos:[function(t,e,n){function r(t,e,n){if(o.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[e]=r,r}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){o.buffer([t],r),o.emit(t,e,n)}var o=t("ee").get("handle");e.exports=r,r.ee=o},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!b++){var t=x.info=NREUM.info,e=l.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();f(w,function(e,n){t[e]||(t[e]=n)}),s("mark",["onload",a()+x.offset],null,"api");var n=l.createElement("script");n.src="https://"+t.agent,e.parentNode.insertBefore(n,e)}}function o(){"complete"===l.readyState&&i()}function i(){s("mark",["domContent",a()+x.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(c=Math.max((new Date).getTime(),c))-x.offset}var c=(new Date).getTime(),s=t("handle"),f=t(12),u=t("ee"),d=window,l=d.document,p="addEventListener",h="attachEvent",m=d.XMLHttpRequest,v=m&&m.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:m,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var y=""+location,w={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1044.min.js"},g=m&&v&&v[p]&&!/CriOS/.test(navigator.userAgent),x=e.exports={offset:c,now:a,origin:y,features:{},xhrWrappable:g};t(9),l[p]?(l[p]("DOMContentLoaded",i,!1),d[p]("load",r,!1)):(l[h]("onreadystatechange",o),d[h]("onload",r)),s("mark",["firstbyte",c],null,"api");var b=0,E=t(14)},{}]},{},["loader",2,7]);</script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","queueTime":0,"licenseKey":"296c359863","agent":"","transactionName":"YldTNRBYVxFUV0MKWVsddxQMWk0LWloYAkZFXlgCA01QDVsaVhNGRhxBEw1dTAFBGkEKU0JBCzEQVl0XVkBzBkJUW103C1xOTFJRQw==","applicationID":"3586455","errorBeacon":"bam.nr-data.net","applicationTime":224}</script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+<meta name="description" content="東熱激情スペシャルサンクスビデオ！今や社会問題のブラック企業＆時間外労働。しか～し！東熱商事のOLさんたちは、喜んでサービス残業してくれてますｗ 鬼畜社員の男たちに自らのセクシーな体を思う存分スペシャルサービスで性欲のはけ口になってく...">
+<meta name="keywords" content="浜崎瑞穂,古川由摩,倉本舞,宮崎リサ,蛯沢真理,n1266">
+
+        
+<meta property="og:site_name" content="Tokyo-Hot">
+<meta property="og:title" content="東熱激情 性処理残業 OL 特集 part1 | Tokyo-Hot 東京熱">
+<meta property="og:image" content="http://my.cdn.tokyo-hot.com/static/images/social.png">
+
+        <title>東熱激情 性処理残業 OL 特集 part1 | Tokyo-Hot 東京熱</title>
+        <link rel="stylesheet" type="text/css" href="http://my.cdn.tokyo-hot.com/static/css/style.css?2017101301">
+        <link rel="stylesheet" type="text/css" href="http://my.cdn.tokyo-hot.com/static/css/movie.css">
+        <link rel="stylesheet" type="text/css" href="http://my.cdn.tokyo-hot.com/static/css/colorbox.css">
+        <link rel="alternate" hreflang="en" href="?lang=en">
+        <link rel="alternate" hreflang="cn" href="?lang=zh-TW">
+        <link rel="alternate" hreflang="ja" href="?lang=ja">
+        
+<link rel="stylesheet" type="text/css" href="http://my.cdn.tokyo-hot.com/static/css/colorbox.css" />
+
+    </head>
+    <body>
+        
+        <div id="container">
+            <a id="open" href="javascript:void(0)"><img src="http://my.cdn.tokyo-hot.com/static/images/menu.png" width="80" height="30" alt="MENU"></a>
+            <div id="header">
+                <div class="in">
+                    <h1 id="top"><a href="/index"><img src="http://my.cdn.tokyo-hot.com/static/images/logo.png" alt="TOKYO-HOT" width="240" height="70"></a></h1>
+                    <div id="global">
+                        <form action="/product/" method="get">
+                            <fieldset>
+                                <legend>キーワード検索</legend>
+                                <input type="text" placeholder="検索" class="searchtext" name="q" value="">
+                                <input type="image" src="http://my.cdn.tokyo-hot.com/static/images/search.png" class="searchbtn">
+                            </fieldset>
+                        </form>
+                        <ul id="globallist">
+                            <li><a href="/guide/"><img src="http://my.cdn.tokyo-hot.com/static/images/about.png" width="14" height="19"> 初めての方へ(Tokyo-Hotとは？)</a></li>
+                            <li><a href="/faq/"><img src="http://my.cdn.tokyo-hot.com/static/images/faq.png" width="18" height="19"> FAQ(よくあるご質問)</a></li>
+                            
+                            <li><a href="/join/"><img src="http://my.cdn.tokyo-hot.com/static/images/join.png" width="15" height="19"> 入会案内</a></li>
+                            
+                            <li><a href="http://www.tokyo-hot.com/login_ccbill"><img src="http://my.cdn.tokyo-hot.com/static/images/login.png" width="13" height="19"> ログイン</a></li>
+                            
+                            
+                            <li class="lang-select">
+                            <a href=""><img src="http://my.cdn.tokyo-hot.com/static/images/language.png" width="13" height="19">&nbsp;LANGUAGE</a>
+                                <ul class="lang-list">
+                                    <li><a href="?lang=jp">日本語</a></li>
+                                    <li><a href="?lang=en">English</a></li>
+                                    <li><a href="?lang=zh-TW">中文</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="nav">
+                        <ul id="navlist">
+                        <li><a href="/product/">全動画リスト</a></li>
+                        <li><a href="javascript:void(0)" class="ua">カテゴリー</a>
+                        <div class="cat listbox">
+                            <dl>
+                                <dt><a href="javascript:void(0)">タイプで選ぶ</a></dt>
+                                
+                                <dd><a href="/product/?type=personality&filter=%E5%BD%BC%E5%A5%B3%E7%B3%BB">彼女系</a></dd>
+                                
+                                <dd><a href="/product/?type=personality&filter=%E3%82%B0%E3%83%A9%E3%83%89%E3%83%AB%E7%B3%BB">グラドル系</a></dd>
+                                
+                                <dd><a href="/product/?type=personality&filter=%E3%82%AE%E3%83%A3%E3%83%AB%E7%B3%BB">ギャル系</a></dd>
+                                
+                                <dd><a href="/product/?type=personality&filter=%E5%86%B7%E3%81%9F%E3%81%84%E7%BE%8E%E4%BA%BA">冷たい美人</a></dd>
+                                
+                                <dd><a href="/product/?type=personality&filter=%E8%89%B2%E3%81%A3%E3%81%BD%E3%81%84">色っぽい</a></dd>
+                                
+                                <dd><a href="/product/?type=personality&filter=%E3%82%A2%E3%82%A4%E3%83%89%E3%83%AB%E7%B3%BB">アイドル系</a></dd>
+                                
+                                <dd><a href="/product/?type=personality&filter=%E6%B8%85%E6%A5%9A%E7%B3%BB">清楚系</a></dd>
+                                
+                                <dd><a href="/product/?type=personality&filter=%E3%82%A2%E3%82%B9%E3%83%AA%E3%83%BC%E3%83%88%E7%B3%BB">アスリート系</a></dd>
+                                
+                            </dl>
+                            <dl>
+                                <dt><a href="javascript:void(0)">体型で選ぶ</a></dt>
+                                
+                                <dd><a href="/product/?type=body_type&filter=%E3%81%A1%E3%81%B3%E7%82%89%E5%88%A9%E7%B3%BB">ちび炉利系</a></dd>
+                                
+                                <dd><a href="/product/?type=body_type&filter=%E5%A4%AA%E3%82%81">太め</a></dd>
+                                
+                                <dd><a href="/product/?type=body_type&filter=%E6%A5%B5%E7%B4%B0">極細</a></dd>
+                                
+                                <dd><a href="/product/?type=body_type&filter=%E6%99%AE%E9%80%9A">普通</a></dd>
+                                
+                                <dd><a href="/product/?type=body_type&filter=%E3%83%A0%E3%83%83%E3%83%81%E3%83%AA%E7%B3%BB">ムッチリ系</a></dd>
+                                
+                                <dd><a href="/product/?type=body_type&filter=%E3%82%B9%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC">スレンダー</a></dd>
+                                
+                            </dl>
+                            <dl>
+                                <dt><a href="javascript:void(0)">プレイ内容で選ぶ</a></dt>
+                                
+                                <dd><a href="/product/?type=play&filter=%E7%9B%A3%E7%A6%81">監禁</a></dd>
+                                
+                                <dd><a href="/product/?type=play&filter=%E3%82%A2%E3%83%8A%E3%83%AB">アナル</a></dd>
+                                
+                                <dd><a href="/product/?type=play&filter=%E5%B0%8F%E9%99%B0%E5%94%87%E5%B0%8F%E3%81%95%E3%82%81">小陰唇小さめ</a></dd>
+                                
+                                <dd><a href="/product/?type=play&filter=%E5%A5%B3%E3%81%AE%E3%82%A2%E3%83%8A%E3%83%AB%E3%82%92%E8%88%90%E3%82%81%E3%82%8B">女のアナルを舐める</a></dd>
+                                
+                                <dd><a href="/product/?type=play&filter=%E4%B8%AD%E5%87%BA%E3%81%97%E3%83%91%E3%83%B3%E3%83%84%E5%B1%A5%E3%81%8B%E3%81%9B">中出しパンツ履かせ</a></dd>
+                                
+                                <dd><a href="/product/?type=play&filter=%E8%86%A3%E5%86%85%E3%82%AB%E3%83%A1%E3%83%A9%E3%83%BB%E8%86%A3%E5%86%85%E6%92%AE%E5%BD%B1%E5%85%B7">膣内カメラ・膣内撮影具</a></dd>
+                                
+                                <dd><a href="/product/?type=play&filter=%E5%8F%A3%E5%86%85%E5%B0%84%E7%B2%BE">口内射精</a></dd>
+                                
+                                <dd><a href="/product/?type=play&filter=%E6%B4%8B%E7%89%A9">洋物</a></dd>
+                                
+                            </dl>
+                            <dl>
+                                <dt><a href="javascript:void(0)">コスチュームで選ぶ</a></dt>
+                                
+                                <dd><a href="/product/?type=costume&filter=%E3%83%8F%E3%83%AD%E3%82%A6%E3%82%A3%E3%83%B3">ハロウィン</a></dd>
+                                
+                                <dd><a href="/product/?type=costume&filter=%E3%81%8A%E3%81%95%E3%81%AA%E5%A6%BB">おさな妻</a></dd>
+                                
+                                <dd><a href="/product/?type=costume&filter=%E4%BD%93%E8%82%B2%E7%9D%80">体育着</a></dd>
+                                
+                                <dd><a href="/product/?type=costume&filter=%E7%8C%AB%E8%80%B3">猫耳</a></dd>
+                                
+                                <dd><a href="/product/?type=costume&filter=%E5%A5%B3%E5%AD%90%E5%A4%A7%E7%94%9F">女子大生</a></dd>
+                                
+                                <dd><a href="/product/?type=costume&filter=%E3%83%90%E3%83%8B%E3%83%BC%E3%82%AC%E3%83%BC%E3%83%AB">バニーガール</a></dd>
+                                
+                                <dd><a href="/product/?type=costume&filter=%E3%83%90%E3%83%BC%E3%83%86%E3%83%B3%E3%83%80%E3%83%BC">バーテンダー</a></dd>
+                                
+                                <dd><a href="/product/?type=costume&filter=%E3%81%8A%E5%AC%A2%E6%A7%98%E7%B3%BB%E8%A1%A3%E8%A3%85">お嬢様系衣装</a></dd>
+                                
+                            </dl>
+                            
+                            <dl>
+                                <dt><a href="javascript:void(0)">サイズで選ぶ</a></dt>
+                                
+                                <dd><a href="/product/?type=aspect_ratio&filter=%E6%A8%99%E6%BA%96%E7%94%BB%E8%B3%AA%20%284%3A3%29">標準画質 (4:3)</a></dd>
+                                
+                                <dd><a href="/product/?type=aspect_ratio&filter=%E9%AB%98%E7%94%BB%E8%B3%AA%20%2816%3A9%29">高画質 (16:9)</a></dd>
+                                
+                                <dd><a href="/product/?type=aspect_ratio&filter=%E3%83%95%E3%83%ABHD%E5%8F%8A%E3%81%B3HD%2816%3A9%29">フルHD及びHD(16:9)</a></dd>
+                                
+                                <dd><a href="/product/?type=aspect_ratio&filter=%E3%83%95%E3%83%ABHD%20%2816%3A9%29">フルHD (16:9)</a></dd>
+                                
+                                <dd><a href="/product/?type=aspect_ratio&filter=HD%20%2816%3A9%29">HD (16:9)</a></dd>
+                                
+                            </dl>
+                            
+                        </div>
+                        </li>
+                        <li><a href="javascript:void(0)" class="ua">女優一覧</a>
+                        <div class="actress listbox">
+                            <dl>
+                                <dt>あ行</dt>
+                                <dd><a href="/cast/a/">あ</a></dd>
+                                <dd><a href="/cast/i/">い</a></dd>
+                                <dd><a href="/cast/u/">う</a></dd>
+                                <dd><a href="/cast/e/">え</a></dd>
+                                <dd><a href="/cast/o/">お</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>か行</dt>
+                                <dd><a href="/cast/ka/">か</a></dd>
+                                <dd><a href="/cast/ki/">き</a></dd>
+                                <dd><a href="/cast/ku/">く</a></dd>
+                                <dd><a href="/cast/ke/">け</a></dd>
+                                <dd><a href="/cast/ko/">こ</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>さ行</dt>
+                                <dd><a href="/cast/sa/">さ</a></dd>
+                                <dd><a href="/cast/shi/">し</a></dd>
+                                <dd><a href="/cast/su/">す</a></dd>
+                                <dd><a href="/cast/se/">せ</a></dd>
+                                <dd><a href="/cast/so/">そ</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>た行</dt>
+                                <dd><a href="/cast/ta/">た</a></dd>
+                                <dd><a href="/cast/chi/">ち</a></dd>
+                                <dd><a href="/cast/tsu/">つ</a></dd>
+                                <dd><a href="/cast/te/">て</a></dd>
+                                <dd><a href="/cast/to/">と</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>な行</dt>
+                                <dd><a href="/cast/na/">な</a></dd>
+                                <dd><a href="/cast/ni/">に</a></dd>
+                                <dd><a href="/cast/nu/">ぬ</a></dd>
+                                <dd><a href="/cast/ne/">ね</a></dd>
+                                <dd><a href="/cast/no/">の</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>は行</dt>
+                                <dd><a href="/cast/ha/">は</a></dd>
+                                <dd><a href="/cast/hi/">ひ</a></dd>
+                                <dd><a href="/cast/hu/">ふ</a></dd>
+                                <dd><a href="/cast/he/">へ</a></dd>
+                                <dd><a href="/cast/ho/">ほ</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>ま行</dt>
+                                <dd><a href="/cast/ma/">ま</a></dd>
+                                <dd><a href="/cast/mi/">み</a></dd>
+                                <dd><a href="/cast/mu/">む</a></dd>
+                                <dd><a href="/cast/me/">め</a></dd>
+                                <dd><a href="/cast/mo/">も</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>や行</dt>
+                                <dd><a href="/cast/ya/">や</a></dd>
+                                <dd><a href="/cast/yu/">ゆ</a></dd>
+                                <dd><a href="/cast/yo/">よ</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>ら行</dt>
+                                <dd><a href="/cast/ra/">ら</a></dd>
+                                <dd><a href="/cast/ri/">り</a></dd>
+                                <dd><a href="/cast/ru/">る</a></dd>
+                                <dd><a href="/cast/re/">れ</a></dd>
+                                <dd><a href="/cast/ro/">ろ</a></dd>
+                            </dl>
+                            <dl>
+                                <dt>わ行</dt>
+                                <dd><a href="/cast/wa/">わ</a></dd>
+                            </dl>
+                        </div>
+                        </li>
+                        <li><a href="javascript:void(0)" class="ua">ランキング</a>
+                        <div class="rank listbox">
+                            <dl>
+                                <dt>ランキング一覧</dt>
+                                <dd><a href="/ranking/weekly/">週間ランキング</a></dd>
+                                <dd><a href="/ranking/monthly/">月間ランキング</a></dd>
+                                <dd><a href="/ranking/yearly/">年間ランキング</a></dd>
+                                
+                            </dl>
+                        </div>
+                        </li>
+                        
+                        <li><a href="javascript:void(0)" class="ua">写真館</a>
+                            <div class="photograph listbox">
+                                <dl>
+                                    <dt>写真館一覧</dt>
+                                    <dd><a href="/photos/photo/">特大JPG・オマンコ写真館</a></dd>
+                                    <dd><a href="/photos/slideshow/">オリジナルスライド写真集</a></dd>
+                                    <dd><a href="/photos/album/">特別掲載JPG写真</a></dd>
+                                </dl>
+                            </div>
+                        </li>
+                        
+                        <li><a href="javascript:void(0)" class="ua">シリーズ一覧</a>
+                        <div class="series listbox">
+                            <dl>
+                                <dt>シリーズ一覧</dt>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E6%92%AE%E3%82%8A%E3%81%8A%E3%82%8D%E3%81%97%E5%BE%B9%E5%BA%95%E9%99%B5%E8%BE%B1%E3%83%93%E3%83%87%E3%82%AA">撮りおろし徹底陵辱ビデオ</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E8%A9%B1%E9%A1%8C%E3%81%AE%E5%A5%B3%E5%84%AA">話題の女優</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%A4%A7%E4%B9%B1%E4%BA%A4%E3%82%B9%E3%83%9A%E3%82%B7%E3%83%A3%E3%83%AB">大乱交スペシャル</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E9%AC%BC%E6%B1%81%E3%83%93%E3%83%87%E3%82%AA%20-%20%E8%87%A8%E6%AD%BB%E7%B2%BE%E6%B6%B2%E5%9C%B0%E7%8D%84">鬼汁ビデオ - 臨死精液地獄</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E9%AC%BC%E9%80%9D%E3%83%93%E3%83%87%E3%82%AA%20-%20%E7%B5%B6%E5%8F%AB%E7%97%99%E6%94%A3%E5%9C%B0%E7%8D%84">鬼逝ビデオ - 絶叫痙攣地獄</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E9%AB%98%E9%A1%8D%E5%A5%B3%E5%84%AA%20%E3%82%B6%E3%83%BB%E3%83%97%E3%83%AC%E3%83%9F%E3%82%A2%E3%83%A0">高額女優 ザ・プレミアム</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%82%A8%E3%82%AF%E3%82%B9%E3%83%88%E3%83%A9%E3%83%93%E3%83%87%E3%82%AA%20-%20%E4%BB%96%E3%82%B8%E3%83%A3%E3%83%B3%E3%83%AB%E7%B3%BB">エクストラビデオ - 他ジャンル系</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%83%81%E3%83%BC%E3%83%A0%E6%9C%A8%E6%9D%91%20-%20%E9%A4%8C%E9%A3%9F%E7%8F%8D%E9%81%93%E4%B8%AD">チーム木村 - 餌食珍道中</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%95%8F%E7%AD%94%E7%84%A1%E7%94%A8%E5%A7%A6">問答無用姦</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%83%95%E3%82%A1%E3%83%B3%E3%82%BF%E3%82%B8%E3%83%BC%E4%BD%9C%E5%93%81">ファンタジー作品</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%82%B9%E3%82%AB%E3%82%A4%E3%83%8F%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%86%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88">スカイハイエンターテイメント</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E4%B8%80%E5%88%80%E4%B8%A1%E6%96%AD">一刀両断</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E7%B5%B6%E5%AF%BE%E6%9C%8D%E5%BE%93">絶対服従</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%BF%98%E6%88%91">忘我</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%82%B9%E3%82%AB%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AB">スカイエンジェル</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%A5%BD%E8%89%B2%E5%A6%BB%E9%99%8D%E8%87%A8">好色妻降臨</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%83%AC%E3%83%83%E3%83%89%E3%83%9B%E3%83%83%E3%83%88%E3%83%95%E3%82%A7%E3%83%86%E3%82%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%82%B3%E3%83%AC%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3">レッドホットフェティッシュコレクション</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%82%B4%E3%83%BC%E3%83%AB%E3%83%89%E3%82%A8%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AB">ゴールドエンジェル</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%81%B6%E3%81%A3%E3%81%8B%E3%81%91%E7%86%9F%E5%A5%B3">ぶっかけ熟女</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E7%B4%A0%E6%92%AE">素撮</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%A5%B3%E7%8B%A9%E3%82%8A">女狩り</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%BC%81%E5%BD%93%E6%B1%A0%E7%94%B0%E3%81%AE%E3%83%91%E3%82%B3%E3%83%91%E3%82%B3%E6%97%A5%E8%A8%98">弁当池田のパコパコ日記</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%81%A1%E3%82%93%E3%81%BD%E5%A4%A7%E5%A5%BD%E3%81%8D">ちんぽ大好き</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%BF%97%E6%91%A9%E7%B4%AB%E5%85%89%E4%BC%9D%E8%AA%AC">志摩紫光伝説</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E7%B4%A0%E5%A7%A6">素姦</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=VR">VR</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E7%8F%BE%E5%BD%B9%E3%82%B0%E3%83%A9%E3%83%89%E3%83%AB%E3%81%AE%E8%A3%8F%E3%83%90%E3%82%A4%E3%83%88">現役グラドルの裏バイト</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E7%89%B9%E5%91%BD%E4%BF%82%E9%95%B7">特命係長</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%83%81%E3%83%BC%E3%83%A0%E6%9C%A8%E6%9D%91%20-%20%E7%95%AA%E5%A4%96%E7%B7%A8">チーム木村 - 番外編</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%82%AF%E3%83%A9%E3%82%A4%E3%83%9E%E3%83%83%E3%82%AF%E3%82%B9%E3%83%BB%E3%82%B8%E3%83%91%E3%83%B3%E3%82%B0">クライマックス・ジパング</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%B1%85%E9%85%92%E5%B1%8B%E3%81%A7%E3%83%8A%E3%83%B3%E3%83%91">居酒屋でナンパ</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E5%A4%96%E9%81%93%E9%AD%82">外道魂</a></dd>
+                                
+                                <dd><a href="/product/?type=genre&filter=%E3%82%AF%E3%82%A4%E3%83%BC%E3%83%B3%E3%82%A8%E3%82%A4%E3%83%88">クイーンエイト</a></dd>
+                                
+                            </dl>
+                        </div>
+                        </li>
+                        <li><a href="javascript:void(0)" class="ua">レーベル一覧</a>
+                        <div class="label listbox">
+                            <dl>
+                                <dt>レーベル一覧</dt>
+                                
+                                <dd><a href="/product/?vendor=東熱">東熱</a></dd>
+                                
+                                <dd><a href="/product/?vendor=BABEL">BABEL</a></dd>
+                                
+                                <dd><a href="/product/?vendor=SkyHigh">SkyHigh</a></dd>
+                                
+                                <dd><a href="/product/?vendor=志摩紫光伝説">志摩紫光伝説</a></dd>
+                                
+                                <dd><a href="/product/?vendor=忘我">忘我</a></dd>
+                                
+                                <dd><a href="/product/?vendor=素姦">素姦</a></dd>
+                                
+                                <dd><a href="/product/?vendor=シロートエキスプレスＺ">シロートエキスプレスＺ</a></dd>
+                                
+                                <dd><a href="/product/?vendor=Naked Angel">Naked Angel</a></dd>
+                                
+                                <dd><a href="/product/?vendor=MistressLand">MistressLand</a></dd>
+                                
+                                <dd><a href="/product/?vendor=vrbangers">vrbangers</a></dd>
+                                
+                                <dd><a href="/product/?vendor=PassionXXX">PassionXXX</a></dd>
+                                
+                                <dd><a href="/product/?vendor=チーム木村番外編">チーム木村番外編</a></dd>
+                                
+                                <dd><a href="/product/?vendor=CLIMAX ZIPANG">CLIMAX ZIPANG</a></dd>
+                                
+                                <dd><a href="/product/?vendor=ウラビマ太郎">ウラビマ太郎</a></dd>
+                                
+                                <dd><a href="/product/?vendor=外道魂">外道魂</a></dd>
+                                
+                                <dd><a href="/product/?vendor=Queen8">Queen8</a></dd>
+                                
+                                <dd><a href="/product/?vendor=チェリービジョン">チェリービジョン</a></dd>
+                                
+                                <dd><a href="/product/?vendor=Sylvia Sucker">Sylvia Sucker</a></dd>
+                                
+                                <dd><a href="/product/?vendor=ファンタスティックベイビー">ファンタスティックベイビー</a></dd>
+                                
+                                <dd><a href="/product/?vendor=巷deウワサのウラびでお">巷deウワサのウラびでお</a></dd>
+                                
+                            </dl>
+                        </div>
+                        </li>
+                        <li><a href="http://blog.tokyo-hot.com/">管理人ブログ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="sp-navi">
+                <select>
+                    <option value="">メニュー</option>
+                    <option value="/mypage/">マイページ</option>
+                    <option value="/join/">入会案内</option>
+                    <option value="/faq/">FAQ</option>
+                    <option value="/company/">会社概要</option>
+                    <option value="/privacy/">プライバシーポリシー</option>
+                    <option value="/agreement/">会員規約</option>
+                    <option value="/contact/">お問い合わせ</option>
+                </select>
+                <select>
+                    <option value="">コンテンツ</option>
+                    <option value="/product/">全動画リスト</option>
+                    <option value="/product/">カテゴリー</option>
+                    <option value="/photos/photo/">写真館</option>
+                    <option value="/cast/">女優一覧</option>
+                    <option value="/ranking/weekly/">ランキング</option>
+                    <option value="/product/">シリーズ一覧</option>
+                </select>
+            </div>
+            
+<div class="pagetitle">
+<h2>東熱激情 性処理残業 OL 特集 part1</h2>
+
+</div>
+
+
+<div class="movie cf">
+    <div class="in">
+        
+        <div class="flowplayer" data-ratio="0.5625">
+            
+            <video poster="http://my.cdn.tokyo-hot.com/media/n1266/list_image/20171112094853/820x462_default.jpg">
+            
+              <source type="video/mp4" src="http://my.cdn.tokyo-hot.com/media/samples/n1266.mp4">
+            
+            </video>
+            
+        </div>
+        
+        <ul class="control">
+            
+            <li class="movieplay"><img src="http://my.cdn.tokyo-hot.com/static/images/movieplay.png" alt="動画再生" width="48" height="48" title="動画再生"></li>
+            
+            <li class="package">
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/jacket/n1266.jpg"><img src="http://my.cdn.tokyo-hot.com/static/images/package.png" alt="ジャケット写真" width="48" height="43"><br>ジャケット</a>
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/package/_v.jpg"></a>
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/package/_vb.jpg"></a>
+            </li>
+            
+        </ul>
+        
+        <ul class="bookmark">
+            <li><a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="tokyo-hot" data-lang="ja">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
+            <li><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fmy.tokyo-hot.com%2Fproduct%2Fn1266%2F&amp;send=false&amp;layout=box_count&amp;width=72&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=60" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:72px; height:61px;" allowTransparency="true"></iframe></li>
+            <li><g:plusone size="tall"></g:plusone>
+            <script type="text/javascript">
+                window.___gcfg = {lang: 'ja'};
+                (function() {
+                 var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                 po.src = 'https://apis.google.com/js/plusone.js';
+                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                 })();
+            </script>
+            </li>
+            <li><a href="http://b.hatena.ne.jp/entry/http://my.tokyo-hot.com/product/n1266/" class="hatena-bookmark-button" data-hatena-bookmark-title="Tokyo-Hot" data-hatena-bookmark-layout="vertical" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async></script></li>
+        </ul>
+        
+    </div>
+
+</div>
+
+
+
+<div id="main">
+    <div class="contents">
+        <h2>東熱激情 性処理残業 OL 特集 part1</h2>
+
+        
+
+        <div class="sentence">
+            東熱激情スペシャルサンクスビデオ！今や社会問題のブラック企業＆時間外労働。しか～し！東熱商事のOLさんたちは、喜んでサービス残業してくれてますｗ 鬼畜社員の男たちに自らのセクシーな体を思う存分スペシャルサービスで性欲のはけ口になってくれてるんですから！これがあるから男たちの仕事率アップ間違いなしでございます！さらに未公開シーンも蔵出し収録でございます！お楽しみください。
+        </div>
+
+        <div class="infowrapper">
+            <dl class="info">
+                <dt>出演者</dt>
+                <dd><a href="/cast/2153/">浜崎瑞穂</a> <a href="/cast/2007/">古川由摩</a> <a href="/cast/2000/">倉本舞</a> <a href="/cast/2017/">宮崎リサ</a> <a href="/cast/2123/">蛯沢真理</a> </dd>
+                
+                <dt>シリーズ</dt>
+                <dd><a href="/product/?type=genre&filter=撮りおろし徹底陵辱ビデオ">撮りおろし徹底陵辱ビデオ</a> </dd>
+                
+                <dt>カテゴリ</dt>
+                <dd><a href="/product/?type=play&filter=中出し">中出し</a> </dd>
+            </dl>
+
+            <dl class="info">
+                <dt>配信開始日</dt>
+                <dd>2017/11/14</dd>
+                <dt>収録時間</dt>
+                <dd>00:49:04</dd>
+                <dt>作品番号</dt>
+                <dd>n1266</dd>
+                
+            </dl>
+        </div>
+
+        
+
+        
+        <div class="vcap">
+            <h2>ムービーダイジェスト</h2>
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 009.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 009/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 011.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 011/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 013.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 013/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 014.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 014/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 024.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 024/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 028.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 028/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 031.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 031/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 039.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 039/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 046.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 046/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 047.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 047/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 053.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 053/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 057.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 057/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 062.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 062/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 065.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 065/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 080.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 080/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 088.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 088/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 093.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 093/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 121.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 121/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 124.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 124/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 132.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 132/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 150.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 150/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 160.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 160/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 170.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 170/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 171.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 171/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 175.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 175/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 177.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 177/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 184.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 184/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 185.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 185/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 194.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 194/120x120_default.jpg" /></a>
+            
+            
+            
+            <a href="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 196.jpg" rel="cap"><img src="http://my.cdn.tokyo-hot.com/static/images/1x1.png" class="lazy" data-original="http://my.cdn.tokyo-hot.com/media/n1266/vcap/n1266_ol01_aq 196/120x120_default.jpg" /></a>
+            
+            
+            
+        </div>
+        
+
+    </div>
+    <div class="aside">
+        
+
+        <h3 class="green">お気に入りに追加</h3>
+        <div class="download cf">
+            <div class="dbox">
+            <form method="post" action="/watchlist/add/" id="favoriteform">
+                <input type='hidden' name='csrfmiddlewaretoken' value='SmkIaFEpgs876zKc6w4f3yntEy2ybQusgCdsIsTdmTOk0LHfMJYeaZeJh2uj6Nb1' />
+                <input type="hidden" name="product_uid" value="n1266" />
+                <button class="btn">お気に入りに追加</button>
+            </form>
+            </div>
+        </div>
+
+        <h3 id="download">ダウンロードはこちらから</h3>
+        <div class="download cf">
+            <div>
+                
+                
+
+
+<div class="dbox">
+    <h4>MP4 (2.112 GB)</h4>
+    
+    <p class="center min narrow">画面サイズ: 1280x720</p>
+    
+    
+    <p class="center min narrow">ビットレート: 6028kbps</p>
+    
+    <p class="btn pu">
+    
+    <a href="#download_content1" class="norightclick">ダウンロードする</a>
+    
+    </p>
+    
+
+    <div class="hidden">
+        <div id="download_content1" class="dcon">
+            
+            
+            <p>動画をダウンロードするにはログインが必要です。<br>まだ会員になられていない方は入会案内ページをご覧ください。</p>
+            
+            <p class="btn"><a href="/join/">入会案内</a>　<a href="/login/?next=/product/n1266/">ログイン</a></p>
+            
+            <p class="notice">
+            注意事項
+            <br />ダウンロード前に必ず当サイトのご利用規約をお読みください、また以下の注意事項もご覧ください：<br>日本国内より当サイトのコンテンツをダウンロードをする行為は、日本国内においてわいせつ物頒布在を構成する可能性があり、当サイトは一切そのような違法行為は許容していないことを理解しています。
+            <br />したがって、当サイトでのアダルトコンテンツの提供は、日本在住の方に対して行っていないことに合意しています。当サイトは、私がどのようなプロキシやVPNなどのサービスを使用しているのか知り得ないので、私が行うダウンロードについては、私自身が上記内容を理解したうえで、私自身の判断でおこなっております。
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+                
+                
+            </div>
+        </div>
+
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+            <div id="footer">
+                <div class="cf footerLabel">
+                    <h4>レーベル一覧</h4>
+                    <ul>
+                        <li><a href="/product/?vendor=東熱"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90tokyohot.jpg"></a></li>
+                        <li><a href="/product/?vendor=忘我"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90bouga.jpg"></a></li>
+                        <li><a href="/product/?vendor=SkyHigh"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90skyhigh.jpg"></a></li>
+                        <li><a href="/product/?vendor=BABEL"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90BABEL.jpg"></a></li>
+                        <li><a href="/product/?vendor=志摩紫光伝説"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90shimashikou.jpg"></a></li>
+                        <li><a href="/product/?vendor=シロートエキスプレスＺ"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90siroto-express.jpg"></a></li>
+                        <li><a href="/product/?vendor=素姦"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90sirokan.jpg"></a></li>
+                        <li><a href="/product/?vendor=ファンタスティックベイビー"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90fantastic-baby.jpg"></a></li>
+                        <li><a href="/product/?vendor=MistressLand"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90mistressland2.jpg"></a></li>
+                        <li><a href="/product/?vendor=Naked Angel"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90nakedangel.jpg"></a></li>
+                        <li><a href="/product/?vendor=チーム木村番外編"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90kimura-bangai.jpg"></a></li>
+                        <li><a href="/product/?vendor=CLIMAX ZIPANG"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90climaxzipang.jpg"></a></li>
+                        <li><a href="/product/?vendor=巷deウワサのウラびでお"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90chimatade.jpg"></a></li>
+                        <li><a href="/product/?vendor=PassionXXX"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90passionxxx.jpg"></a></li>
+                        <li><a href="/product/?vendor=vrbangers"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90vrbangers.jpg"></a></li>
+                        <li><a href="/product/?vendor=外道魂"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90gedo.png"></a></li>
+                        <li><a href="/product/?vendor=Queen8"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90queen8.jpg"></a></li>
+                        <li><a href="/product/?vendor=ウラビマ太郎"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90urabimataro.jpg"></a></li>
+                        <li><a href="/product/?vendor=チェリービジョン"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90teendrome.jpg"></a></li>
+                        <li><a href="/product/?vendor=Sylvia Sucker"><img src="http://my.cdn.tokyo-hot.com/static/images/190x90sylvia.jpg"></a></li>
+                    </ul>
+                </div>
+                
+                <div class="cf footerRecommendSites">
+                    <h4>おすすめサイト</h4>
+                    <ul>
+                        
+                        <li><a href="javascript:void(0)"><img src="http://my.cdn.tokyo-hot.com/media/banner/site/20151126095849.jpg"></a></li>
+                        
+                        <li><a href="http://tvdeav.com/"><img src="http://my.cdn.tokyo-hot.com/media/banner/site/20150718082722.jpg"></a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="in cf">
+                    <dl>
+                        <dt>メインコンテンツ</dt>
+                        <dd><a href="/index">トップページ</a></dd>
+                        <dd><a href="/product/">全動画リスト</a></dd>
+                        <dd><a href="/product/">カテゴリー</a></dd>
+                        <dd><a href="/photos/photo/">写真館</a></dd>
+                        <dd><a href="/cast/">女優一覧</a></dd>
+                        <dd><a href="/ranking/weekly/">ランキング</a></dd>
+                        <dd><a href="/product/">シリーズ一覧</a></dd>
+                    </dl>
+
+                    <dl>
+                        <dt>サイト情報</dt>
+                        
+                        <dd><a href="http://my.tokyo-hot.com/login/">ログイン</a></dd>
+                        
+                        <dd><a href="/mypage/">マイページ</a></dd>
+                        <dd><a href="/join/">入会案内</a></dd>
+                        <dd><a href="/faq/">FAQ</a></dd>
+                        <dd><a href="/company/">会社概要</a></dd>
+                        <dd><a href="/privacy/">プライバシーポリシー</a></dd>
+                        <dd><a href="/agreement/">会員規約</a></dd>
+                        <dd><a href="/contact/">お問い合わせ</a></dd>
+                    </dl>
+
+                    <dl>
+                        <dt>お知らせ</dt>
+                        <dd><a href="/news/">サイトニュース</a></dd>
+                        <dd><a href="http://blog.tokyo-hot.com/">管理人ブログ</a></dd>
+                        <dt style="margin: 10px 0 0;">パートナー募集</dt>
+                        
+                        <dd><a href="/affiliate/">アフィリエイト</a></dd>
+                        <dd><a href="/vendor">コンテンツ募集</a></dd>
+                        
+                    </dl>
+
+                    <ul class="social">
+                        <li><a href="http://twitter.com/intent/tweet?text=Tokyo-Hot&url=http://my.tokyo-hot.com/" target="_blank"><img src="http://my.cdn.tokyo-hot.com/static/images/twitter.png" title="Twitterでつぶやく"></a></li>
+                        <li><a href="javascript:void(0);" onclick="window.open('http://mixi.jp/share.pl?u=http://my.tokyo-hot.com&k=bf08a4fd7afd87cff916c8d781b50e97b49edf81','share',['width=632','height=456','location=yes','resizable=yes','toolbar=no','menubar=no','scrollbars=no','status=no'].join(','));"><img src="http://my.cdn.tokyo-hot.com/static/images/mixi.png" title="mixiチェック"></a></li>
+                        <li><a href="http://www.facebook.com/share.php?u=http%3A%2F%2Fmy.tokyo-hot.com%2Fproduct%2Fn1266%2F" onclick="window.open(this.href, 'facebookwindow','width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1');return false;"><img src="http://my.cdn.tokyo-hot.com/static/images/fb.png" title="facebookでイイネ" /></a></li>
+                        <li><a target="_blank" href="http://b.hatena.ne.jp/entry/http://my.tokyo-hot.com/" class="xxhatena-bookmark-button" data-hatena-bookmark-title="Tokyo-Hot" data-hatena-bookmark-layout="standard" title="Tokyo-Hotをはてなブックマークに追加"><img src="http://my.cdn.tokyo-hot.com/static/images/hatena.png" title="はてなブックマークに追加" /></a></li>
+                        <li><a href="https://plusone.google.com/_/+1/confirm?hl=en&url=http://my.tokyo-hot.com/"><img src="http://my.cdn.tokyo-hot.com/static/images/google.png" title="グーグルプラスワンでシェアする" /></a></li>
+                    </ul>
+
+                    <p class="mm"><a href="/mailmag_thankyou">Tokyo-Hotメールマガジンのご登録はこちら</a></p>
+                    <p>&copy; 2017 Tokyo-Hot All Rights Reserved.</p>
+                    <p class="complied"><a href="#complied">Complied with USC §2257 & 28CFR75.8</a></p>
+                    <div class="hidden">
+                        <div id="complied" class="dcon">
+                            <p><strong>WARNINGS</strong><br>
+                            The records required by 18 U.S.C. Section 2257 and 28 C.F.R. Section 75 for all materials contained in this website are kept by the following custodian of records at the following location: A. BREITDACH Unter Fettenhennen 16 50667 Koeln Germany</p>
+                            <p>JSKY SERVICES, Inc. is not a primary producer defined in 28 C.F.R. Section 75.1, but may be deemed a secondary producer as defined therein. Therefore, the records for this website are also kept by the following custodian of records at the following location: JSKY SERVICES, Inc. 27 , OLD GLOUCESTER STREET, LONDON, WC1N 3AX, United Kingdom</p>
+                            <p><strong>年齢認証</strong><br>
+                            当サイトにはアダルトコンテンツが含まれています。成人以外は当サイトへのアクセスを固く禁じます。当サイトのコンテンツにアクセスすることにより、少なくとも成人であると扱われます。当サイトは、アメリカ合衆国連邦法<br>
+                            （U.S.C. Section 2257 and　28CFR75.8）の記録保持要件を遵守するサイトです。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pt"><a href="#top"><img src="http://my.cdn.tokyo-hot.com/static/images/pt.png" alt="このページの先頭へ" width="60" height="30"></a></div>
+        </div>
+        <div class="hidden">
+            <div id="androidAlertDialog">
+                <p>スマートフォン用ページはストリーミング専用サイトとなっております。Androidの方で動画をダウンロードしたい方は下記の設定を行い、パソコン版サイトを表示させてください。</p>
+
+                <h1>*Androidの標準ブラウザの場合：</h1>
+                <p>メニューから「デスクトップ版サイトを...」の横のチェック欄をチェックする。</p>
+
+                <h1>*Android版Chromeの場合：</h1>
+                <p>メニューから「PC版サイトを見る」の横のチェック欄をチェックする。</p>
+            </div>
+        </div>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tools/1.2.7/jquery.tools.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.6.3/jquery.colorbox-min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.3/jquery.lazyload.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.5/jquery.bxslider.min.js"></script>
+        <script src="http://my.cdn.tokyo-hot.com/static/js/flowplayer.min.js"></script>
+        <script src="http://my.cdn.tokyo-hot.com/static/js/jquery.sidr.min.js"></script>
+        <script src="http://my.cdn.tokyo-hot.com/static/js/share.js?2016100601"></script>
+        <script type="text/javascript">
+            var ua = window.navigator.userAgent.toLowerCase();
+            var isAndroid = ua.indexOf("android") != -1 && ua.indexOf("mobile") != -1
+        </script>
+        
+
+<script type="text/javascript" src="http://my.cdn.tokyo-hot.com/static/js/movie.js?2015112801"></script>
+<script type="text/javascript">
+var isMobile = false;
+$(function(){
+    $('#androidAlert').colorbox({
+        inline: true,
+        width: '95%'
+    });
+});
+</script>
+
+
+        
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+        Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-36737673-4', 'tokyo-hot.com');
+        ga('send', 'pageview');
+
+        </script>
+        
+    </body>
+</html>
+

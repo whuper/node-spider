@@ -4,7 +4,14 @@ var superagent = require('superagent');
 var async = require('async');
 
 var writejson = require('./writejson');
+var helloword = require('./helloword');
 
+
+//writejson({data:'dasda'});
+
+
+helloword('ddd');
+return;
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('./nodespider.db');
 /*

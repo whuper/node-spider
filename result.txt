@@ -1,31 +1,9 @@
-﻿
- --***-- Thu Nov 16 2017 16:53:38 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 404 PATH /sw-search-sp/soft/f2/25836/1Sublime_Text.1395998182oo.dmg"
- --***-- Thu Nov 16 2017 16:53:51 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 404 PATH /sw-search-sp/soft/f2/25836/1Sublime_Text.1395998182oo.dmg"
- --***-- Thu Nov 16 2017 16:55:04 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 404 PATH /sw-search-sp/soft/f2/25836/1Sublime_Text.1395998182oo.dmg"
- --***-- Thu Nov 16 2017 18:16:50 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 403 PATH http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/220x124_default.jpg"
- --***-- Thu Nov 16 2017 18:18:21 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 403 PATH http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/220x124_default.jpg"
- --***-- Thu Nov 16 2017 18:21:14 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 403 PATH http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/220x124_default.jpg"
- --***-- Thu Nov 16 2017 18:22:06 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
- --***-- Thu Nov 16 2017 18:22:47 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
- --***-- Thu Nov 16 2017 18:23:16 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
- --***-- Thu Nov 16 2017 18:24:26 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
- --***-- Thu Nov 16 2017 18:33:20 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 500 PATH http://www.baidu.com/img/baidu_jgylogo3.gif"
- --***-- Thu Nov 16 2017 18:34:09 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] file size > 1000000000 bytes. File size = undefined"
- --***-- Thu Nov 16 2017 18:34:39 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] file size > 1000000000 bytes. File size = undefined"
- --***-- Thu Nov 16 2017 18:36:05 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] file size > 1000000000 bytes. File size = undefined"
- --***-- Thu Nov 16 2017 18:41:23 GMT+0800 (中国标准时间)
- "[REQUEST FAILED] 403 PATH http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/220x124_default.jpg"
+
+ --***-- Fri Nov 17 2017 18:31:39 GMT+0800 (中国标准时间)
+ {"id":1,"sampleSrc":"http://my.cdn.tokyo-hot.com/media/samples/ubt859.mp4","posterImg":"http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/820x462_default.jpg","actorInfo":"\n            <dl class=\"info\">\n                <dt>&#x51FA;&#x6F14;&#x8005;</dt>\n                <dd></dd>\n                \n                <dt>&#x30AB;&#x30C6;&#x30B4;&#x30EA;</dt>\n                <dd><a href=\"/product/?type=play&amp;filter=&#x30AA;&#x30E2;&#x30C1;&#x30E3;&#x8CAC;&#x3081;\">&#x30AA;&#x30E2;&#x30C1;&#x30E3;&#x8CAC;&#x3081;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;&#x30BB;&#x30C3;&#x30AF;&#x30B9;\">&#x30A2;&#x30CA;&#x30EB;&#x30BB;&#x30C3;&#x30AF;&#x30B9;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;&#x73A9;&#x5F04;\">&#x30A2;&#x30CA;&#x30EB;&#x73A9;&#x5F04;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;&#x4E2D;&#x51FA;&#x3057;\">&#x30A2;&#x30CA;&#x30EB;&#x4E2D;&#x51FA;&#x3057;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;&#x30DE;&#x30F3;&#x30B3;&#x540C;&#x6642;&#x633F;&#x5165;\">&#x30A2;&#x30CA;&#x30EB;&#x30DE;&#x30F3;&#x30B3;&#x540C;&#x6642;&#x633F;&#x5165;</a> <a href=\"/product/?type=play&amp;filter=&#x30D5;&#x30A7;&#x30E9;\">&#x30D5;&#x30A7;&#x30E9;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;\">&#x30A2;&#x30CA;&#x30EB;</a> </dd>\n            </dl>\n\n            <dl class=\"info\">\n                <dt>&#x914D;&#x4FE1;&#x958B;&#x59CB;&#x65E5;</dt>\n                <dd>2017/11/16</dd>\n                <dt>&#x53CE;&#x9332;&#x6642;&#x9593;</dt>\n                <dd>00:43:54</dd>\n                <dt>&#x4F5C;&#x54C1;&#x756A;&#x53F7;</dt>\n                <dd>ubt859</dd>\n                \n            </dl>\n        ","vcap_list":[]}
+ --***-- Fri Nov 17 2017 18:34:17 GMT+0800 (中国标准时间)
+ {"id":1,"actorInfo":null,"vcap_list":[]}
+ --***-- Fri Nov 17 2017 18:34:31 GMT+0800 (中国标准时间)
+ {"id":1,"actorInfo":null,"vcap_list":[]}
+ --***-- Fri Nov 17 2017 18:35:55 GMT+0800 (中国标准时间)
+ {"id":1,"sampleSrc":"http://my.cdn.tokyo-hot.com/media/samples/ubt859.mp4","posterImg":"http://my.cdn.tokyo-hot.com/media/ubt859/list_image/20171111022805/820x462_default.jpg","actorInfo":"\n            <dl class=\"info\">\n                <dt>&#x51FA;&#x6F14;&#x8005;</dt>\n                <dd></dd>\n                \n                <dt>&#x30AB;&#x30C6;&#x30B4;&#x30EA;</dt>\n                <dd><a href=\"/product/?type=play&amp;filter=&#x30AA;&#x30E2;&#x30C1;&#x30E3;&#x8CAC;&#x3081;\">&#x30AA;&#x30E2;&#x30C1;&#x30E3;&#x8CAC;&#x3081;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;&#x30BB;&#x30C3;&#x30AF;&#x30B9;\">&#x30A2;&#x30CA;&#x30EB;&#x30BB;&#x30C3;&#x30AF;&#x30B9;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;&#x73A9;&#x5F04;\">&#x30A2;&#x30CA;&#x30EB;&#x73A9;&#x5F04;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;&#x4E2D;&#x51FA;&#x3057;\">&#x30A2;&#x30CA;&#x30EB;&#x4E2D;&#x51FA;&#x3057;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;&#x30DE;&#x30F3;&#x30B3;&#x540C;&#x6642;&#x633F;&#x5165;\">&#x30A2;&#x30CA;&#x30EB;&#x30DE;&#x30F3;&#x30B3;&#x540C;&#x6642;&#x633F;&#x5165;</a> <a href=\"/product/?type=play&amp;filter=&#x30D5;&#x30A7;&#x30E9;\">&#x30D5;&#x30A7;&#x30E9;</a> <a href=\"/product/?type=play&amp;filter=&#x30A2;&#x30CA;&#x30EB;\">&#x30A2;&#x30CA;&#x30EB;</a> </dd>\n            </dl>\n\n            <dl class=\"info\">\n                <dt>&#x914D;&#x4FE1;&#x958B;&#x59CB;&#x65E5;</dt>\n                <dd>2017/11/16</dd>\n                <dt>&#x53CE;&#x9332;&#x6642;&#x9593;</dt>\n                <dd>00:43:54</dd>\n                <dt>&#x4F5C;&#x54C1;&#x756A;&#x53F7;</dt>\n                <dd>ubt859</dd>\n                \n            </dl>\n        ","vcap_list":[]}
