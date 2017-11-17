@@ -12,8 +12,9 @@ var db = new sqlite3.Database('./nodespider.db');
 require('superagent-proxy')(superagent);
 
 // HTTP, HTTPS, or SOCKS proxy to use
-// http://61.135.169.121:443  'http://127.0.0.1:1080'
-var proxy = process.env.http_proxy || 'http://127.0.0.1:1080';
+// http://61.135.169.121:443  'http://127.0.0.1:1080' 'http://127.0.0.1:1087'
+
+var proxy = process.env.http_proxy || 'http://127.0.0.1:1087';
 
 var timeOut;
 
@@ -41,18 +42,18 @@ function toRequest(url,id){
 		.end(function(err, res){
 			if (err) {
 				console.log(err);
-				writeJson(err);
+				writejson(err);
 			  } else {
-					var $ = cheerio.load(res.text);
-					var sampleSrc = $('.flowplayer>video>source').attr('src');
-					var posterImg = $('.flowplayer>video').attr('poster');
-					//var actorInfo = $('.infowrapper').html();
-					var actorInfo = $('.infowrapper').html();
-					var vcap = $('div.vcap').html();
+					//var $ = cheerio.load(res.text);
+                   var $ = cheerio.load(res.text,{decodeEntities: false}); 
 
-					var vcap_list = [];
-					$('div.vcap>a').each(function(idx, element){
-						vcap_list.push($(element).attr('href'));
+                    var sampleSrc = $('.flowplayer>video>source').attr('src');
+					var posterImg = $('.flowplayer>video').attr('poster');
+					var actorInfo = $('.infowrapper').html();
+                        actorInfo = actorInfo.replace(/[\n+\s+\(\):]/g,"") 
+					var scap_list = [];
+					$('div.scap a').each(function(idx, element){
+						scap_list.push($(element).attr('href'));
 								
 					});
 						var itemInfo = {
@@ -60,10 +61,11 @@ function toRequest(url,id){
 							sampleSrc: sampleSrc,
 							posterImg: posterImg,
 							actorInfo: actorInfo,
-							vcap_list: vcap_list
+							scap_list: JSON.stringify(scap_list)
 						}
 						writejson(itemInfo);
-					updateDb(itemInfo,id);
+					updateDb(itemInfo);
+                     console.log('itemInfo.actorInfo',itemInfo.actorInfo);
 					cur_page += 1;
 				
 			  }
@@ -85,7 +87,7 @@ function updateDb(item){
 	}
 	// 更新到数据库里
 		var modify = db.prepare("UPDATE tokyohot SET actorInfo = ?,videoUrl = ?,posterImg = ?,vcapList= ? WHERE id = ?");
-		modify.run(item.actorInfo,item.sampleSrc,item.posterImg,item.vcap_list,item.id);
+		modify.run(item.actorInfo,item.sampleSrc,item.posterImg,item.scap_list,item.id);
 		modify.finalize();
 
 		console.log('\x1B[36m%s\x1B[0m','###开始下一个');
