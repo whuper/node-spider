@@ -68,7 +68,7 @@ var Downloader = (function() {
 	if(proxy){
 		options = {
 			host : '127.0.0.1',
-			port : '1080',
+			port : '1087',
 			path : theUrl,
 			headers:{
 					'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',

@@ -22,8 +22,8 @@ var basic_url = 'http://www.tokyo-hot.com';
 //var basic_url = 'https://news.cnblogs.com/n/page/';
 var cur_page = 1;
 
-var sqlStr = `SELECT id,url FROM tokyohot limit 0,1`;
-	db.each(sqlStr,function(err, rows){
+var sqlStr = `SELECT id,url FROM tokyohot limit 1000,3000`;
+	db.all(sqlStr,function(err, rows){
 		 if (err){
 		 console.log(err);
 		 writejson(err);
@@ -31,11 +31,21 @@ var sqlStr = `SELECT id,url FROM tokyohot limit 0,1`;
 		 //var imgName = rows['actor'].replace(/[\s+\(\):]/g,"") + '.jpg';
 		
 		 //console.log(imgName);
-		 toRequest(basic_url + rows['url'],rows['id']);
-	});
+		          
+        async.mapLimit(rows, 4, function (row, callback) {
+          //fetchUrl(url, callback);
+          toRequest(row,callback);
+        });
 
-function toRequest(url,id){
-	console.log('\x1B[36m%s\x1B[0m:','request ' + url);
+
+	});
+    //db.close();
+
+function toRequest(row,callback){
+     var url = basic_url + row['url'];
+     var id = row['id'];
+	console.log('\x1B[36m%s\x1B[0m:','request ' + url + ' id ' + id);
+
 	superagent
 		.get(url)
 		.proxy(proxy)
@@ -63,40 +73,32 @@ function toRequest(url,id){
 							actorInfo: actorInfo,
 							scap_list: JSON.stringify(scap_list)
 						}
-						writejson(itemInfo);
 					updateDb(itemInfo);
-                     console.log('itemInfo.actorInfo',itemInfo.actorInfo);
-					cur_page += 1;
-				
+                    //回调
+                    callback();
 			  }
 					});
 
 }
 
-function onresponse (err, res) {
-
-}
 
 function updateDb(item){
 
 	if(!item.id){
-
 		console.log('#####id为空');
 		return;
-	
 	}
 	// 更新到数据库里
 		var modify = db.prepare("UPDATE tokyohot SET actorInfo = ?,videoUrl = ?,posterImg = ?,vcapList= ? WHERE id = ?");
 		modify.run(item.actorInfo,item.sampleSrc,item.posterImg,item.scap_list,item.id);
 		modify.finalize();
 
-		console.log('\x1B[36m%s\x1B[0m','###开始下一个');
+		//console.log('\x1B[36m%s\x1B[0m','###开始下一个');
 		/*timeOut = setTimeout(function(){
 			toRequest(basic_url + cur_page);
 		},1000);*/
 
 		//db.close();
 }
-
 
 
