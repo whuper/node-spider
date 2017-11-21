@@ -1,8 +1,10 @@
 var sqlite3 = require('sqlite3').verbose();
 var downloader = require('./downloader');
 var writejson = require('./writejson');
+var os=require('os');
+var platform = os.platform();
 
-
+var fs=require("fs");
 var db = new sqlite3.Database('./nodespider.db');
 /*
 	db.serialize(function() {
@@ -16,7 +18,8 @@ var db = new sqlite3.Database('./nodespider.db');
 
 	db.close();
 	*/
-	var downloadDir = __dirname + '/downloads/tokyohot/';
+	var downloadRootDir = __dirname + '/downloads/tokyohot/posters/';
+	var tmpdownloadDir = '';
 
 	var curpage = 1;
 	var pagesize = 10; 
@@ -29,30 +32,41 @@ var db = new sqlite3.Database('./nodespider.db');
 	
 	var schedules =	setInterval(function(){
 		querydb();	
-	},3000)
+	},5000)
 	
 
 function querydb(page){
 
 	var start = (curpage - 1) * pagesize + 1;
-	var sqlStr = `SELECT coverSrc,actor FROM tokyohot limit ${start},${pagesize}`;
-	db.each(sqlStr,function(err, rows){
+	var sqlStr = `SELECT id,posterImg,actor FROM tokyohot limit ${start},${pagesize}`;
+	db.each(sqlStr,function(err, row){
 		 if (err){
 		 console.log(err);
 		 writejson(err);
 		 }
-		 var imgName = rows['actor'].replace(/[\s+\(\):]/g,"") + '.jpg';
+		 var imgName = row['actor'].replace(/[\s+\(\):]/g,"") + '.jpg';
 		
 		 //console.log(imgName);
-		 downloadImg(rows['coverSrc'],imgName);
+		var itemId = row['id'];
+		var folder_size = 500
+        var folder_name = 'within_' + String( ( parseInt( (itemId - 1) / folder_size) + 1) * folder_size );
+        tmpdownloadDir = downloadRootDir + folder_name + '/';
+       
+        if( !fs.existsSync(tmpdownloadDir) ){
+            fs.mkdirSync(tmpdownloadDir);
+        }
+		
+		if(row['posterImg']){
+			console.log(row['posterImg']);
+		 downloadImg(row['posterImg'],imgName,tmpdownloadDir);
+		} else {
+			console.log(row['id'] + ' null');
+		}
 	});
 	curpage += 1;
-	if(curpage > 3){
-	process.exit()
-	}
 }
 
-function downloadImg(url,imgName){
+function downloadImg(url,imgName,downloadDir){
 
 downloader.on('done', function(msg) {
 	console.log('\x1B[36m%s\x1B[0m:',msg);

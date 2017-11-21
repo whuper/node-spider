@@ -27,6 +27,15 @@ var url = require('url');
 var fs = require('fs');
 var EventEmitter = require('events').EventEmitter;
 //var util = require('util');
+var os=require('os');
+
+
+var platform = os.platform();
+if(platform == 'win32'){
+  var port = 1080;	  
+} else {
+var port = 1087;
+}
 
 var Downloader = (function() {
 
@@ -65,10 +74,11 @@ var Downloader = (function() {
   function download(theUrl, outputDir,proxy,trueName,maxFileSize) {
 
 
+
 	if(proxy){
 		options = {
 			host : '127.0.0.1',
-			port : '1087',
+			port : port,
 			path : theUrl,
 			headers:{
 					'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',

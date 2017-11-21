@@ -1,3 +1,3 @@
 
- --***-- Sat Nov 18 2017 15:21:04 GMT+0800 (CST)
- "[REQUEST FAILED] 500 PATH http://my.cdn.tokyo-hot.com/media/samples/Q8027.mp4"
+ --***-- Tue Nov 21 2017 22:12:10 GMT+0800 (中国标准时间)
+ "[REQUEST FAILED] 500 PATH http://my.cdn.tokyo-hot.com/media/6006/list_image/n1038_1280_720-002/820x462_default.jpg"

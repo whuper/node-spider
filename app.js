@@ -7,6 +7,13 @@ var writejson = require('./writejson');
 var helloword = require('./helloword');
 
 
+var platform = os.platform();
+if(platform == 'win32'){
+  var port = 1080;	  
+} else {
+var port = 1087;
+}
+
 //writejson({data:'dasda'});
 
 
@@ -63,7 +70,7 @@ require('superagent-proxy')(superagent);
 
 // HTTP, HTTPS, or SOCKS proxy to use
 // http://61.135.169.121:443  'http://127.0.0.1:1080'
-var proxy = process.env.http_proxy || 'http://127.0.0.1:1080';
+var proxy = process.env.http_proxy || 'http://127.0.0.1:' + port ;
 
 var timeOut;
 
