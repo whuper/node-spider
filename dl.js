@@ -41,7 +41,7 @@ var db = new sqlite3.Database('./nodespider.db');
 	});
 	*/
 
-	var sqlStr = `SELECT id,posterImg,actor FROM tokyohot where posterImg is not null`;
+	var sqlStr = `SELECT id,posterImg,actor FROM tokyohot where posterImg is not null and id > 1445`;
 	db.all(sqlStr,function(err, rows){
 		 if (err){
 		 console.log(err);
@@ -68,7 +68,11 @@ function toDownload(row,callback){
         if( !fs.existsSync(tmpdownloadDir) ){
             fs.mkdirSync(tmpdownloadDir);
         }
-		httpGet(row['posterImg'],tmpdownloadDir,imgName,true,callback);
+		var tmpurl = encodeURI(row['posterImg']);
+		console.log(tmpurl);
+		httpGet(tmpurl,tmpdownloadDir,imgName,true,callback);
+		//httpGet("http://my.cdn.tokyo-hot.com/media/21100/list_image/k0823.mp4_004/820x462_default.jpg",'./','test.jpg',true,callback);
+		
 }
 
 
