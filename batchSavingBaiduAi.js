@@ -14,109 +14,100 @@ if(platform == 'win32'){
 var port = 1087;
 }        
 
+var AipSpeechClient = require("baidu-aip-sdk").speech;
+
+// 设置APPID/AK/SK
+var APP_ID = "11405723";
+var API_KEY = "nTrfKypNEi2n59hGCzy0oBcY";
+var SECRET_KEY = "EL3HrYAv2l8g3hq5TxnMX7rMCj0mkLp4";
+
+// 新建一个对象，建议只保存一个对象调用服务接口
+var client = new AipSpeechClient(APP_ID, API_KEY, SECRET_KEY);
+
+var utilHao = require('./libs/util-hao.js');
+
+
+
 
 var fs=require("fs");
-var db = new sqlite3.Database('./nodespider.db');
-/*
-	db.serialize(function() {
-		//db.run("CREATE TABLE lorem (info TEXT)");
 
-		stmt.finalize();
-		db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-			  console.log(row.id + ": " + row.info);
-		  });
-	});
+var db = new sqlite3.Database('D:/nodejs/electron/electron-ui-route/assets/wenhaotest.db');
 
-	db.close();
-	*/
-	var downloadRootDir = __dirname + '/downloads/tokyohot/posters/';
+	var downloadRootDir = __dirname + '/downloads/baiduSpeech/';
 	var tmpdownloadDir = '';
 
-	// 创建目录
-	/*
-	mkdirp(downloadRootDir, function(err) {
-		if(err){
-			console.log(err);
-		}
-	});
-	*/
 
-	var sqlStr = `SELECT id,posterImg,actor FROM tokyohot where posterImg is not null and id > 1445`;
+	//var sqlStr = `SELECT id,posterImg,actor FROM english where posterImg is not null and id > 1445`;
+	var sqlStr = `SELECT id,example FROM english limit 0,5`;
+
 	db.all(sqlStr,function(err, rows){
 		 if (err){
-		 console.log(err);
-		 writejson(err);
+			 console.log(err);
+			 writejson(rows);
 		 }
-		 async.mapLimit(rows, 15, function (row, callback) {
-          toDownload(row,callback);
+
+		 async.mapLimit(rows, 10, function (row, callback) {
+					var examples = row['example'] ? row['example'].split("#"):[];
+
+					for (var i = 0; i < examples.length; i++) {
+						var sentence = examples[i];
+						//从英文句子中,去除中文
+
+							let stop = sentence.search(/[\u4e00-\u9fa5]/);
+							if(stop != -1 && stop > 0){
+								var enSentence = sentence.substring(0,stop);
+							} else {
+								var enSentence = sentence;
+							}
+							let audioName = utilHao.excludeSpecial(enSentence,' ');
+
+							toDownload(enSentence,audioName,row['id'],callback);
+
+					};
+
+         
         });
 
 	});
 
-function toDownload(row,callback){
-		var audioName = row['actor'].replace(/[\s+\(\):]/g,"") + '.jpg';
-		var itemId = row['id'];
-		var folder_size = 500
-        var folder_name = 'within_' + String( ( parseInt( (itemId - 1) / folder_size) + 1) * folder_size );
+function toDownload(sentence,audioName,itemId,callback){
+	
+		var folder_size = 500;
+    var folder_name = 'within_' + String( ( parseInt( (itemId - 1) / folder_size) + 1) * folder_size );
         tmpdownloadDir = downloadRootDir + folder_name + '/';
+
         if( !fs.existsSync(tmpdownloadDir) ){
             fs.mkdirSync(tmpdownloadDir);
         }
-		var tmpurl = encodeURI(row['posterImg']);
-		console.log(tmpurl);
-		httpGet(tmpurl,tmpdownloadDir,audioName,callback);
+				console.log('itemId # ' + itemId);
+
+				save(tmpdownloadDir,sentence,audioName,callback);
 			
 }
 
 
-function httpGet(fileurl,dir,filename,callback) {
+function save(dir,sentence,audioName,callback) {
 
-		var options = {
-		  host: url.parse(fileurl).hostname,
-		  port: url.parse(fileurl).port,
-		  path: url.parse(fileurl).pathname
-		};
-
-    http.get(options, function (res) {
-                res.setEncoding('binary');//转成二进制
-                var content = '';
-                res.on('data', function (data) {
-                   content+=data;
-                }).on('end', function () {
-                   fs.writeFile(dir + filename,content,'binary', function (err) {
-                       if (err) throw err;
-                       console.log('## save ' + filename);
-											 if(callback){
-												callback();
-											 }
-                   });
-
-                });
-			});
+		
+		let fielName = dir + audioName + '.mp3';
+		client.text2audio(sentence).then(function(result) {
+			if (result.data) {
+					fs.writeFile(fielName,result.data,function(err){
+								 if (err) throw err;
+								
+								 if(callback){
+									callback();
+								 }
+					
+					});
+			} else {
+					// 服务发生错误
+					console.log(result)
+			}
+	}, function(e) {
+			// 发生网络错误
+			console.log(e)
+	});
 
 }
-
-/*function downloadImg(url,imgName,downloadDir){
-
-downloader.on('done', function(msg) {
-	console.log('\x1B[36m%s\x1B[0m:',msg);
-});
-
-downloader.on('error', function(msg) {
-	console.log('\x1B[36m%s\x1B[0m',msg);
-	writejson(msg);
-});
-
-downloader.download(url, downloadDir,true,imgName);
-
-}
-
-function download(uri, dir,filename){  
-    request.head(uri, function(err, res, body){  
-        request(uri).pipe(fs.createWriteStream(dir + "/" + filename));  
-    });  
-};     
-
-*/
-
 
