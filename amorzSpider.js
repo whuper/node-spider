@@ -48,7 +48,7 @@ function toRequest(url){
 	console.log('\x1B[36m%s\x1B[0m:','request' + url);
 	superagent
 		.get(url)
-		//.set('header',header)
+		.set('header',header)
 		.proxy(proxy)
 		.end(onresponse);
 
@@ -69,21 +69,27 @@ function onresponse (err, res) {
 			//var desc_element = a_element.find('.description2');
 			var coverOnclickTxt = $element.find('span.class4').eq(1).find('a').attr('onclick');
 
-			var realUrl = coverOnclickTxt.substring(coverOnclickTxt.indexOf('http'),coverOnclickTxt.indexOf('.jpg')+4);
+            var realUrl = '';
 
+                if(coverOnclickTxt && coverOnclickTxt.length > 5){
+                    //去除所有空格:
+                     var coverOnclickTxt = coverOnclickTxt.replace(/[\r\n\s]*/g,"");  
+                
+			        realUrl = coverOnclickTxt.substring(coverOnclickTxt.indexOf('http'),coverOnclickTxt.indexOf('.jpg')+4);
+                }
 			items.push({
 				href: $element.find('span.class3 a').attr('href'),
-				designation: desc_element.find('span.small-txt').text(),
+				designation: $element.find('span.small-txt').text(),
 				cover: realUrl,
-				title: desc_element.find('.title').text(),
-				studio: $element.find('span.class4').eq(0).find('a').text(),
+				title: $element.find('span.class3 a').text(),
+                studio: $element.find('span.class4').eq(0).find('a').text(),
 				releaseDate:'',
 				product_images:webUrl + $element.find('td:first-child a img').attr('src')
 			});
 	});
 
 		//insertDb(items);
-    console.log(items);
+    writejson(items);
 
 		cur_page += 1;
 
