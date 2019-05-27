@@ -39,7 +39,7 @@ var timeOut;
 var webUrl = 'https://www.amorz.com/';
 
 var basic_url = 'https://www.amorz.com/AllTitles.aspx?WhichOne=1&CountPage=';
-var cur_page = 1;
+var cur_page = 129;
 
 toRequest(basic_url + cur_page);
 
@@ -99,8 +99,8 @@ function onresponse (err, res) {
 
 		cur_page += 1;
 
-    if(cur_page > 5){
-      return
+    if(cur_page > 130){
+      process.exit(1);
     }
 	
   }
@@ -120,7 +120,7 @@ function insertDb(items){
 		console.log('\x1B[36m%s\x1B[0m','### 开始下一个' + cur_page + '++');
 		timeOut = setTimeout(function(){
 			toRequest(basic_url + cur_page);
-		},1000);
+		},1500);
 
 		
 		//db.close();
