@@ -69,27 +69,33 @@ function onresponse (err, res) {
 			//var desc_element = a_element.find('.description2');
 			var coverOnclickTxt = $element.find('span.class4').eq(1).find('a').attr('onclick');
 
-            var realUrl = '';
+      var href =  $element.find('span.class3 a').attr('href');
+          if(!href){
+              return true;
+          }
+      var realUrl = '';
 
-                if(coverOnclickTxt && coverOnclickTxt.length > 5){
-                    //去除所有空格:
-                     var coverOnclickTxt = coverOnclickTxt.replace(/[\r\n\s]*/g,"");  
-                
-			        realUrl = coverOnclickTxt.substring(coverOnclickTxt.indexOf('http'),coverOnclickTxt.indexOf('.jpg')+4);
-                }
+      if(coverOnclickTxt && coverOnclickTxt.length > 5){
+            //去除所有空格:
+            var coverOnclickTxt = coverOnclickTxt.replace(/[\r\n\s]*/g,"");  
+        
+            realUrl = coverOnclickTxt.substring(coverOnclickTxt.indexOf('http'),coverOnclickTxt.indexOf('.jpg')+4);
+        } else {
+              return true;
+        }
 			items.push({
-				href: $element.find('span.class3 a').attr('href'),
+				href: href,
 				designation: $element.find('span.small-txt').text(),
 				cover: realUrl,
 				title: $element.find('span.class3 a').text(),
-                studio: $element.find('span.class4').eq(0).find('a').text(),
+        studio: $element.find('span.class4').eq(0).find('a').text(),
 				releaseDate:'',
 				product_images:webUrl + $element.find('td:first-child a img').attr('src')
 			});
 	});
 
-		//insertDb(items);
-    writejson(items);
+    insertDb(items);
+    //writejson(items);
 
 		cur_page += 1;
 
@@ -104,14 +110,14 @@ function onresponse (err, res) {
 function insertDb(items){
 
 	//保存到数据库里
-		var stmt = db.prepare("INSERT INTO amorz(id,title,designation,studio,releaseDate,cover,detailUrl,product_images) VALUES (?,?,?,?,?,?,?,?)");
+		var stmt = db.prepare("INSERT INTO amorz(id,title,designation,studio,releaseDate,cover,detailUrl,product_images,soursePage) VALUES (?,?,?,?,?,?,?,?,?)");
 		items.forEach(function(item,index) {
 			console.log(item);
-			stmt.run(null, item.title,item.designation, item.studio, item.releaseDate,item.cover,item.href,item.product_images);
+			stmt.run(null, item.title,item.designation, item.studio, item.releaseDate,item.cover,item.href,item.product_images,cur_page);
 		})
 		stmt.finalize();
 
-		console.log('\x1B[36m%s\x1B[0m','###开始下一个');
+		console.log('\x1B[36m%s\x1B[0m','### 开始下一个' + cur_page + '++');
 		timeOut = setTimeout(function(){
 			toRequest(basic_url + cur_page);
 		},1000);

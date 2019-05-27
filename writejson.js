@@ -1,5 +1,5 @@
 function WriteJson(data){
-		var dataBuf = '\n --***-- ' + (new Date()) + '\n ' + JSON.stringify(data);
+		var dataBuf = '\n --***-- ' + (new Date()) + '\n ' + JSON.stringify(data,null,4);
 		var fs = require('fs');
 		var logfile = './result.txt';
 		fs.exists(logfile, function(exists) {  
