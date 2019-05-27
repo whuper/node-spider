@@ -4,6 +4,7 @@ var superagent = require('superagent');
 var async = require('async');
 
 var writejson = require('./writejson');
+var os = require('os');
 
 var platform = os.platform();
 if(platform == 'win32'){
@@ -73,7 +74,7 @@ function onresponse (err, res) {
 			items.push({
 				href: $element.find('span.class3 a').attr('href'),
 				designation: desc_element.find('span.small-txt').text(),
-				cover: '',
+				cover: realUrl,
 				title: desc_element.find('.title').text(),
 				studio: $element.find('span.class4').eq(0).find('a').text(),
 				releaseDate:'',
@@ -81,8 +82,14 @@ function onresponse (err, res) {
 			});
 	});
 
-		insertDb(items);
+		//insertDb(items);
+    console.log(items);
+
 		cur_page += 1;
+
+    if(cur_page > 5){
+      return
+    }
 	
   }
 }
