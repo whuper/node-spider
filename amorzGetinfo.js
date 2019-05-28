@@ -27,7 +27,8 @@ var timeOut;
 var basic_url = 'https://www.amorz.com';
 var cur_page = 1;
 
-var sqlStr = `SELECT id,cover FROM amorz limit 10, 1920`;
+//var sqlStr = `SELECT id,cover FROM amorz limit 1738, 1920`;
+var sqlStr = `SELECT id,cover FROM amorz where coverImgUrl IS NULL`;
 db.all(sqlStr, function(err, rows) {
 	if (err) {
 		console.log(err);
