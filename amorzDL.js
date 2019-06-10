@@ -3,6 +3,7 @@ var writejson = require('./writejson');
 var mkdirp = require('mkdirp');
 var async = require('async');
 var http = require('http');
+var request = require('request');
 
 var os=require('os');
 var platform = os.platform();
@@ -41,7 +42,7 @@ var db = new sqlite3.Database('./nodespider.db');
 	*/
 
 	//var sqlStr = `SELECT id,coverImgUrl FROM amorz where coverImgUrl is not null and id > 1445`;
-	var sqlStr = `SELECT id,coverImgUrl FROM amorz limit 0,10`;
+	var sqlStr = `SELECT id,coverImgUrl FROM amorz limit 0,2`;
 	db.all(sqlStr,function(err, rows){
 		 if (err){
 		 console.log(err);
@@ -69,40 +70,41 @@ function toDownload(row,callback){
         if( !fs.existsSync(tmpdownloadDir) ){
             fs.mkdirSync(tmpdownloadDir);
         }
-		var tmpurl = encodeURI(row['coverImgUrl']);
-		console.log(itemId + tmpurl);
-    httpGet(tmpurl,tmpdownloadDir,imgName,true,callback);
-    //httpGet("http://my.cdn.tokyo-hot.com/media/21100/list_image/k0823.mp4_004/820x462_default.jpg",'./','test.jpg',true,callback);
+		//var tmpurl = encodeURI(row['coverImgUrl']);
+		var tmpurl = row['coverImgUrl'];
+		console.log(itemId + ' ' + tmpurl);
+		//httpGet(tmpurl,tmpdownloadDir,imgName,callback);
+		//httpGet("http://my.cdn.tokyo-hot.com/media/21100/list_image/k0823.mp4_004/820x462_default.jpg",'./','test.jpg',callback);
+		httpGet('https://lh3.googleusercontent.com/-uHZzQm1DGas/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcnYbaCz4boEN_HdYMqKm5VWcCZ9w/mo/photo.jpg','./','test.jpg',callback);
 		
 }
 
 
-function httpGet(imgurl,dir,filename,proxy,callback) {
-		if(proxy){
+function httpGet(imgurl,dir,filename,callback) {
+
 			var options = {
 				host : '127.0.0.1',
 				port : port,
 				path : imgurl,
 				headers:{
-                Host: ‘www.amorz.com’,
-                Connection: ‘keep-alive’,
-                Upgrade-Insecure-Requests: 1
-                User-Agent: ‘Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3800.0 Safari/537.36’,
-                Sec-Fetch-Mode: ‘navigate’,
-                Sec-Fetch-User: ‘?1’,
-                Accept:‘text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3’,
-                Sec-Fetch-Site: ‘none’,
-                Accept-Encoding: ‘gzip, deflate’,
-                Accept-Language: ‘zh-CN,zh;q=0.9,
+						//':authority': 'lh3.googleusercontent.com',
+						//':method': 'GET',
+						//':path:' :'/-uHZzQm1DGas/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcnYbaCz4boEN_HdYMqKm5VWcCZ9w/mo/photo.jpg?sz=46',
+						//':scheme': 'https',
+            'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+						'Accept-Encoding': 'gzip, deflate, br',
+						'Accept-Language':'zh-CN,zh;q=0.9',
+						'Cache-Control':'no-cache',
+						'Connection': 'keep-alive',
+						//'Host':'www.amorz.com',
+						'Pragma': 'no-cache',
+						'Proxy-Connection':'keep-alive',
+						'Upgrade-Insecure-Requests':'1',
+						'User-Agent':'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
+						'x-client-data': 'CJC2yQEIpbbJAQjBtskBCKmdygEIqKPKAQixp8oBCOKoygEI8anKAQjKrcoB'
                 }	
 } ;
-	} else {
-		var options = {
-		  host: url.parse(imgurl).hostname,
-		  port: url.parse(imgurl).port,
-		  path: url.parse(imgurl).pathname
-		};
-	}
+
     http.get(options, function (res) {
                 res.setEncoding('binary');//转成二进制
                 var content = '';
